@@ -1,5 +1,4 @@
-Devflow
-=======
+![Devflow](public/images/logo.png "Devflow")
 
 An application allowing to monitor the state of servers and requests of different kinds (pullrequests, graylogs).
 
