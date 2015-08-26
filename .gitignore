@@ -4,4 +4,4 @@ npm-debug.log
 .DS_Store
 
 # ignore config
-config.js
+/config.js
