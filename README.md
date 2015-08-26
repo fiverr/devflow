@@ -2,18 +2,18 @@
 
 An application allowing to monitor the state of servers and requests of different kinds (pullrequests, graylogs).
 
-Prerequisites:
+<h2>Prerequisites:</h2>
 
   * MongoDB
   * Google Account and App with Google+ API enabled 
 
-Optional Services Integration:
+<h2>Optional Services Integration:</h2>
   
   * GitHub
   * HipChat
   * Email
 
-Configuration:
+<h2>Configuration:</h2>
   
   config.js
 
@@ -22,12 +22,12 @@ Configuration:
 
   See examples in the config.js.dev in the project 
 
-Web Management Console includes (for admin role only):
+<h2>Web Management Console (for admin role only):</h2>
 
   * User Management.
   * Server Management. (No enviroment additions/deletions available)
 
-Setup and Local Use: 
+<h2>Setup and Local Use:</h2>
   
   * Create config.js in the root folder of the project (- rename config.js.dev to config.js and replace with your values)
   * Create a google app with Google+ API enabled in the google developers console
@@ -60,7 +60,7 @@ Setup and Local Use:
 
   Enter: http://devflow.yourdomain.com:3000/ or localhost:3000
 
-Deploy and Production Settings:
+<h2>Deploy and Production Settings:</h2>
 
   configuration setup:
 
