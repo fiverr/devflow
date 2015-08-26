@@ -1,0 +1,25 @@
+<section class="requests">
+
+    <div>
+        <ul>
+            <li>
+                 <request request-object="request" current-user="currentUser" type="requestType" is-new="true"></request>
+            </li>
+            <li ng-repeat="request in requests | filter: query">
+                <request request-object="request" current-user="currentUser"></request>
+            </li>
+        </ul>
+
+        <a class="btn-standard load-more" ng-click="loadMore()">More</a>
+    </div>
+
+    <div class="reviews">
+        <h2>Top Reviewers</h2>
+        <ul>
+            <li ng-repeat="review in reviews">
+                <review review-object="review" is-first="isFirstReview(review)" index="reviews.indexOf(review) + 1"></request>
+            </li>
+        </ul>
+    </div>
+
+</section>

@@ -1,0 +1,31 @@
+<div ng-class="{faded: !isCurrentUser(server) && !canJoin(server) && !isUserInQueue(server)}">
+    <a ng-if="!isTaken(server) && canJoin(server)" class="btn-standard" ng-click="take(server)">Take</a>
+
+    <span ng-if="isTaken(server)">{{releaseTime(server)}}</span>
+
+    <div ng-if="isTaken(server)">
+        <img class="user-image" ng-src="{{server.user.image}}" />
+        {{server.user.name}}
+    </div>
+
+    <aside>
+        <a ng-if="isTaken(server) && canJoin(server)" class="hint--bottom" data-hint="Take" ng-click="take(server)"><i class="fa fa-child"></i></a>
+        <a ng-if="isTaken(server) && canJoin(server)" class="hint--bottom" data-hint="Queue" ng-click="joinQueue(server)"><i class="fa fa-user-plus"></i></a>
+
+        <a ng-if="isCurrentUser(server)" ng-click="release(server)" class="hint--bottom" data-hint="Release"><i class="fa fa-times-circle-o"></i></a>
+        <a ng-if="isCurrentUser(server)" ng-click="showExtendForm(server)" class="hint--bottom" data-hint="Extend"><i class="fa fa-clock-o"></i></a>
+        
+        <a ng-if="isUserInQueue(server)" ng-click="unqueue(server)" class="hint--bottom" data-hint="Unqueue"><i class="fa fa-user-times"></i></a>
+
+        <a ng-if="canTakeUp(server)" ng-click="changeDownState(server, false)" class="hint--bottom" data-hint="Up"><i class="fa fa-arrow-circle-o-up"></i></a>
+        <a ng-if="canTakeDown(server)" ng-click="changeDownState(server, true)" class="hint--bottom" data-hint="Down"><i class="fa fa-arrow-circle-o-down"></i></a>
+    </aside>
+
+    <ul>
+        <li ng-repeat="user in server.queue">
+            <a class="hint--left" data-hint="{{user.name}}"><img class="user-image" ng-src="{{user.image}}" /></a>
+        </li>
+    </ul>
+
+    <h2 ng-class="getState(server)">{{server.name}}</h2>
+</div>

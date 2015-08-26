@@ -1,0 +1,7 @@
+# Ignore node modules
+/node_modules
+npm-debug.log
+.DS_Store
+
+# ignore config
+config.js

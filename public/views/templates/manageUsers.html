@@ -1,0 +1,40 @@
+<section class="manage-users">
+    <h2>User Management</h2>
+
+    <a class="btn-standard" ng-click ="saveUsers()" ng-disabled="saving">
+        <i class="fa fa-circle-o-notch fa-spin" ng-if="saving"></i>
+        <span ng-show="!saving">Save</span>
+        <span ng-show="saving">Saving</span>
+    </a>
+
+    <table class="data-tbl">
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Google ID</th>
+                <th>Email</th>
+                <th>Image</th>
+                <th>Associated?</th>
+                <th>Role</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="add-new">
+            <td colspan="8"><a ng-click="addUser()"><i class="fa fa-plus-circle"></i></a></td>
+        </tr>
+        <tr ng-repeat="user in users | filter: query">
+            <td><img class="user-image" ng-src="{{user.image}}"/></td>
+            <td><input type="text" ng-model="user.name" ng-change="fieldChanged(user, 'name')" ng-class="{invalid: isInvalid(user, 'name')}"></td>
+            <td>{{user.id}}</td>
+            <td><input type="text" ng-model="user.email" ng-change="fieldChanged(user, 'email')" ng-class="{invalid: isInvalid(user, 'email')}"></td>
+            <td><input type="text" ng-model="user.image"></td>
+            <td><input type="checkbox" ng-model="user.associated"></td>
+            <td><input type="text" ng-model="user.role"></td>
+            <td><a ng-click="deleteUser(user)"><i class="fa fa-times-circle-o"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>

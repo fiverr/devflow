@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="devflowApp">
+    <head>
+        <title>DevFlow [Fiverr]</title>
+        <link rel="shortcut icon" href="images/logo.ico">
+
+        <link rel="stylesheet" type="text/css" href="styles/app.css">
+        <link rel="stylesheet" href="styles/vendor/hint.min.css"></link>
+
+        <!-- 3rd party stylesheets -->
+        <link rel="stylesheet" type='text/css' href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type='text/css' href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.7/css/ngDialog.min.css">
+        <link rel="stylesheet" type='text/css' href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.7/css/ngDialog-theme-default.min.css">
+        <link rel="stylesheet" type='text/css' href="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.7/css/ngDialog-theme-plain.min.css">
+        <link rel="stylesheet" type='text/css' href="//fonts.googleapis.com/css?family=Abel" >
+
+        <!-- 3rd party scripts -->
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.3.7/js/ngDialog.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+        <!-- app -->
+        <script src="scripts/app.js"></script>
+        <script src="/config"></script>
+        <script src="scripts/config.js"></script>
+
+        <!-- services -->
+        <script src="scripts/services/userService.js"></script>
+        <script src="scripts/services/notificationService.js"></script>
+        <script src="scripts/services/requestService.js"></script>
+        <script src="scripts/services/serverService.js"></script>
+        <script src="scripts/services/reviewService.js"></script>
+
+        <!-- controllers -->
+        <script src="scripts/controllers/mainController.js"></script>
+        <script src="scripts/controllers/dashboardController.js"></script>
+        <script src="scripts/controllers/serverController.js"></script>
+        <script src="scripts/controllers/userController.js"></script>
+        <script src="scripts/controllers/requestController.js"></script>
+        <script src="scripts/controllers/manageServersController.js"></script>
+
+        <!-- directives -->
+        <script src="scripts/directives/ngSrc.js"></script>
+        <script src="scripts/directives/request/directive.js"></script>
+        <script src="scripts/directives/review/directive.js"></script>
+        <script src="scripts/directives/server-env/directive.js"></script>
+        <script src="scripts/directives/server/directive.js"></script>
+    </head>
+
+    <body ng-controller="mainController">
+
+        <aside>
+            <image src="images/logo.png" height="50" width="180"></image>
+
+            <div>
+                <img class="user-image" ng-src="{{currentUser.image}}" ng-click="showUserImagePopup()"/>
+                <span>{{currentUser.name}}</span>
+
+                <ul>
+                    <li><i class="fa fa-github"></i>{{userCounts.pullrequest}}</li>
+                    <li><i class="fa fa-bug"></i>{{userCounts.graylog}}</li>
+                </ul>
+            </div>
+
+            <nav>
+                <a href="#/main" ng-class="{sel: isSelected('main')}"><i class="fa fa-home"></i>Dashboard</a>
+                <a href="#/servers" ng-class="{sel: isSelected('servers')}"><i class="fa fa-server"></i>Servers</a>
+                <a href="#/pullrequests" ng-class="{sel: isSelected('pullrequests')}"><i class="fa fa-github"></i>Pull Requests</a>
+                <a href="#/graylogs" ng-class="{sel: isSelected('graylogs')}"><i class="fa fa-bug"></i>Graylogs</a>
+                <a href="#/" ng-class="{sel: isSelected('fqueues')}"><i class="fa fa-exclamation-circle"></i>F - Queues</a>
+                <div class="manage" ng-if="isManagingUser">
+                    <a href="#/manage-users"><i class="fa fa-users"></i>Manage Users</a>
+                    <a href="#/manage-servers"><i class="fa fa-cubes"></i>Manage Servers</a>
+                </div>
+            </nav>
+        </aside>
+
+        <div>
+            <header> 
+                <i class="fa fa-search"></i>
+                <input type="text" ng-model="query" placeholder=" Search here..."/>
+                <i class="fa fa-info-circle" ng-click="showAboutPopup()"></i>
+                <i class="fa fa-exclamation-circle" ng-class="{unread: hasUnreadNotifications}" ng-mouseover="toggleNotifications(true)" ng-mouseout="toggleNotifications(false)"></i>
+
+                <div ng-show="showNotifications">
+                    <span ng-if="!notifications.length">
+                        No new notifications!
+                    </span>
+
+                    <ul ng-if="notifications.length">
+                        <li ng-repeat="notification in notifications">
+                            <img class="user-image" ng-src="{{notification.image}}" />
+                            {{notification.text}}
+                        </li>
+                    </ul>
+                </div>
+            </header>
+
+            <div class="main-content" ng-view>
+            </div>
+        </div>
+            
+    </body>
+</html>

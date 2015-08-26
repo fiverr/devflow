@@ -1,0 +1,20 @@
+<div ng-if="env.servers.length > 0"> 
+    <header>{{env.name}}</header>
+
+    <div>
+        <h3 ng-if="env.queue.length">Queue:</h3>
+        <ul>
+            <li ng-repeat="user in env.queue">
+                <a class="hint--right" data-hint="{{user.name}}"><img class="user-image" ng-src="{{user.image}}" /></a>
+            </li>
+        </ul>
+        <a ng-if="canJoinEnvQueue(env)" class="hint--right" data-hint="Queue" ng-click="joinQueue(env)"><i class="fa fa-user-plus"></i></a>
+        <a ng-if="isUserInQueue(env)" class="hint--right" data-hint="Unqueue" ng-click="unqueue(env)"><i class="fa fa-user-times"></i></a>
+    </div>
+    
+    <ul>
+        <li ng-repeat="server in env.servers | filter: query">
+            <server server-object="server" current-user="currentUser"></server>
+        </li>
+    <ul>
+</div>

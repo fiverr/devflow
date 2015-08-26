@@ -1,0 +1,8 @@
+<section class="popup popup-server-extend">
+    <header><i class="fa fa-clock-o"></i></header>
+    <div>
+        <p>How much more time do you need on {{server.name}}?</p>
+        <input type="number" min="1" max="12" step="1" ng-model="time" ng-class="{invalid: timeInvalid}" ng-change="fieldChanged()" /><label>hours (between 1 and 12)</label>
+    </div>
+    <a class="btn-standard" ng-click="extend(server)">Extend</a>
+</section>

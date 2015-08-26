@@ -1,0 +1,105 @@
+module.exports = function(env) {
+
+    var global = {
+
+        sessionSecret: 'yourSecret',
+        mongo: 'mongodb://localhost:27017/devflow',
+        domain: 'yourdomain',
+        google: {
+            clientId: '',
+            clientSecret: '',
+            callbackURL: ''
+        },
+        mail: {
+            isEnabled: false
+        },
+        hipchat: {
+            isEnabled: false,
+            rooms: {}
+        },
+        github: {
+            organization: 'yourorg',
+            accessToken: ''
+        }
+        jobs: {
+            serverRelease: {
+                timeout: 1000 * 60 * 5
+            },
+            clearReviewers: {
+                announcementRoom: 'pullrequest'
+            }
+        },
+        client: {
+            requests: {
+                graylog: {
+                    types: ['BE', 'Team1', 'Team2', 'Team3'],
+                    typeTitle: 'Team',
+                    linkTitle: 'Link',
+                    linkRegex: '^http://graylog.yourdomain.com/',
+                    useSmallLabels: true,
+                    constantEnv: 'Graylog Link',
+                    rejectable: false,
+                    selfTakable: true
+                },
+                pullrequest: {
+                    types: ['BE', 'FE', 'Android', 'IOS'],
+                    typeTitle: 'Type',
+                    linkTitle: 'Github Link',
+                    linkRegex: '^https://github.com/',
+                    hasNumber: true,
+                    rejectable: true
+                }
+            },
+
+            links: [
+                {text: 'Link1', url: ''},
+                {text: 'Link2', url: ''},
+            ],
+
+            refreshInterval: 1000 * 60 * 5
+        }
+    };
+
+    var config = {
+
+        development: {
+            port: 3000,
+            google: {
+                clientId: '',
+                clientSecret: '',
+                callbackURL: ''
+            }
+        },
+
+        production: {
+            port: 3005,
+            hipchat: {
+                isEnabled: true,
+                authToken: '',
+                rooms: {
+                    pullrequest: 1,
+                    graylog: 2,
+                    server: 3
+                }
+            },
+            mail: {
+                isEnabled: false,
+                service: 'Gmail',
+                auth: {
+                    user: '',
+                    pass: ''
+                },
+                from: 'Devflow <devflow@yourdomain.com>',
+                signature: 'Sincerly,<br>The Devflow Team.'
+            }
+        }
+    }
+
+    for (configKey in global) {
+        if (!config[env][configKey]) {
+            config[env][configKey] = global[configKey];
+        }
+    }
+
+    return (config[env]);
+}

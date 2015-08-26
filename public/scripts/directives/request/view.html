@@ -1,0 +1,64 @@
+<div ng-if="isNew" class="blur new">
+    <a ng-click="openEdit()"><i class="fa fa-plus-circle"></i></a>
+</div>
+
+<div ng-if="!isNew" ng-class="{blur: isReviewed(request)}">
+
+    <header>
+        <h2>
+            <img class="user-image" ng-src="{{request.user.image}}"/>
+            {{request.user.name}}
+        </h2>
+
+        <div>   
+            <a href="{{request.data.title}}" target="_blank">
+                {{getEnv(request)}}
+                <span>{{getNumber(request)}}</span>
+            </a>
+            <h3 >{{getDisplayDate(request.created_date)}}</h3>
+        </div>
+
+        <span class="{{request.data.sub_type.toLowerCase()}}" ng-class="{small: smallLabels || request.data.sub_type.length > 3}">{{request.data.sub_type}}</span>
+
+    </header>
+
+    <div class="owner-actions"> 
+        <p ng-class="{expanded: request.data.desc.length > 124}">{{request.data.desc ? request.data.desc : 'No Description Provided'}}</p>
+
+        <div ng-if="canEdit(request)">         
+            <a ng-click="openEdit(request)" class="hint--left" data-hint="Edit"><i class="fa fa-edit"></i></a>
+            <a ng-if="isPosted(request)" class="hint--left" data-hint="Nudge" ng-click="nudge(request)"><i class="fa fa-toggle-up"></i></a>
+            <a ng-click="delete(request)" class="hint--left" data-hint="Delete"><i class="fa fa-remove"></i></a>
+        </div>
+    </div>
+
+    <div class="reviewer-actions">
+        <div class="reviewer" ng-if="hasReviewer(request)">
+            Reviewer:
+            <img class="user-image" ng-src="{{request.reviewer.image}}"/>
+            {{request.reviewer.name}}
+        </div>
+
+        <a class="btn-standard take" ng-if="canTake(request)" ng-click="take(request)">Take</a>
+
+        <span ng-if="hasReviewer(request)" class="taken" ng-class="{waiting: isWaitingForReviewEnd(request), ended: isReviewed(request)}">Taken: {{getDisplayDate(request.taken_date)}}</span>
+        <span ng-if="isReviewed(request)" class="reviewed">
+            Reviewed: {{getDisplayDate(request.reviewed_date)}}
+            <a class="hint--left" data-hint="Required additional work"><i ng-if="wasRejected(request)" class="fa fa-warning"></i></a>
+        </span>
+        <span ng-if="isWaitingForReviewStart(request) || isWaitingForReviewEnd(request)">Waiting...</span>
+
+        <div class="actions" ng-if="canComplete(request)">
+            <a ng-if="!rejectable" class="btn-standard complete" ng-click="complete(request)">Complete</a>
+            <a ng-if="!rejectable" class="btn-standard release" ng-click="release(request)">Release</a>
+
+            <a ng-if="rejectable" class="btn-standard complete hint--top" ng-click="complete(request)" data-hint="Approved (with/without comments)"><i class="fa fa-thumbs-o-up"></i></a>
+            <a ng-if="rejectable" class="btn-standard reject hint--top" ng-click="reject(request)" data-hint="Needs some more work"><i class="fa fa-warning"></i></a>
+            <a ng-if="rejectable" class="btn-standard release hint--top" ng-click="release(request)" data-hint="Release"><i class="fa fa-sign-out"></i></a>
+        </div>
+    </div>
+
+    <footer ng-class="request.state"></footer>
+
+</div>
+

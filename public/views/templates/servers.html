@@ -1,0 +1,5 @@
+<ul>
+    <li ng-repeat="env in serverEnvironments | filter: query">
+        <server-env env-object="env" current-user="currentUser"></server-env>
+    </li>
+</ul>

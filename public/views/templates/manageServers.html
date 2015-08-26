@@ -1,0 +1,34 @@
+<section class="manage-servers">
+    <h2>Server Management</h2>
+
+    <a class="btn-standard" ng-click ="saveServers()">Save</a>
+
+    <ul ng-repeat="env in envs | filter: query"> 
+        <li>
+            <input type="text" ng-model="env.name">
+            <table class="data-tbl">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Environment</th>
+                        <th>Url</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr class="add-new">
+                    <td colspan="4"><a ng-click="addServer(env)"><i class="fa fa-plus-circle"></i></a></td>
+                </tr>
+                <tr ng-repeat="server in env.servers | filter: query">
+                    <td><input type="text" ng-model="server.name"></td>
+                    <td><input type="text" ng-model="server.environment"></td>
+                    <td><input type="text" ng-model="server.url"></td>
+                    <td><a ng-click="deleteServer(env, server)"><i class="fa fa-times-circle-o"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </li>
+
+    </ul>
+
+</section>

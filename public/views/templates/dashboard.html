@@ -1,0 +1,50 @@
+<section class="dashboard">
+
+    <section ng-if="pullrequests.length">
+        <header>Pull Requests</header>
+        <ul>
+            <li ng-repeat="pullrequest in pullrequests | filter: query">
+                <request request-object="pullrequest" current-user="currentUser"></request>
+            </li>
+        </ul>
+        <ul class="reviews">
+            <li ng-repeat="review in pullrequestReviews">
+                <review review-object="review" index="pullrequestReviews.indexOf(review) + 1"></review>
+            </li>
+        </ul>
+    </section>
+
+    <section ng-if="graylogs.length">
+        <header>Graylogs</header>
+        <ul>
+            <li ng-repeat="graylog in graylogs | filter: query">
+               <request request-object="graylog" current-user="currentUser"></request>
+            </li>
+        </ul>
+        <ul class="reviews">
+            <li ng-repeat="review in graylogReviews">
+                <review review-object="review" index="graylogReviews.indexOf(review) + 1"></review>
+            </li>
+        </ul>
+    </section>
+
+    <section class="section-servers" ng-if="serverEnvironments.length">
+        <header>Servers</header>
+        <ul>
+            <li ng-repeat="env in serverEnvironments | filter: query">
+                <server-env env-object="env" current-user="currentUser"></server-env>
+            </li>
+        </ul>
+    </section>
+
+    <section class="section-links" ng-if="links.length">
+        <header>Useful Links</header>
+        <ul>
+            <li ng-repeat="link in links | filter: query">
+                 <a target="_blank" ng-href="{{link.url}}" class="btn-standard">{{link.text}}</a>
+            </li>
+        </ul>       
+    </section>
+
+</section>
+

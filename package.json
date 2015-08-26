@@ -1,0 +1,18 @@
+{
+  "name": "devflow",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.5.1",
+    "github": "^0.2.3",
+    "mongoose": "3.8.8",
+    "node-sass-middleware": "^0.5.0",
+    "nodemailer": "^0.6.3",
+    "passport": "^0.2.0",
+    "passport-google-oauth2": "^0.1.6",
+    "socket.io": "~0.9.16"
+  }
+}

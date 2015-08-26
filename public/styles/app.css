@@ -1,0 +1,605 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Abel', sans-serif;
+  background-color: #F8F8F8; }
+  body ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; }
+    body ul li.ng-enter, body ul li.ng-move {
+      opacity: 0;
+      transition: 0.5s linear all; }
+    body ul li.ng-enter.ng-enter-active, body ul li.ng-move.ng-move-active {
+      opacity: 1; }
+    body ul li.ng-leave {
+      opacity: 1;
+      transition: 0.5s linear all; }
+    body ul li.ng-leave.ng-leave-active {
+      opacity: 0; }
+  body input {
+    font-family: 'Abel', sans-serif; }
+  body h1, body h2, body h3 {
+    margin: 0;
+    font-size: 16px; }
+  body a {
+    text-decoration: none;
+    cursor: pointer; }
+  body .user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px; }
+  body .btn-standard {
+    background: darkgray;
+    color: #fff !important;
+    padding: 5px 10px; }
+    body .btn-standard:hover {
+      background: gray; }
+  body table {
+    border-spacing: 0 7px; }
+    body table tbody tr {
+      background: #fff; }
+      body table tbody tr.add-new {
+        text-align: center; }
+        body table tbody tr.add-new i {
+          font-size: 30px;
+          opacity: 0.2; }
+          body table tbody tr.add-new i:hover {
+            opacity: 0.5; }
+      body table tbody tr td {
+        padding: 10px; }
+        body table tbody tr td input {
+          font-size: 14px; }
+        body table tbody tr td i.fa-times-circle-o {
+          font-size: 18px;
+          opacity: 0.2; }
+          body table tbody tr td i.fa-times-circle-o:hover {
+            opacity: 0.5; }
+  body request {
+    background: #fff;
+    display: inline-block;
+    width: 305px;
+    height: 234px;
+    overflow: hidden; }
+    body request:hover footer {
+      opacity: 1; }
+    body request > div.new {
+      height: 100%; }
+      body request > div.new a {
+        display: inline-block;
+        color: lightgray;
+        font-size: 50px;
+        padding: 92px 0 0 131px; }
+    body request > div.blur {
+      opacity: 0.4; }
+      body request > div.blur:hover {
+        opacity: 1; }
+    body request img {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 20px !important;
+      display: block;
+      margin: auto;
+      padding-bottom: 3px; }
+    body request header {
+      overflow: hidden;
+      position: relative; }
+      body request header h2 {
+        float: left;
+        font-size: 12px;
+        padding: 17px 7px 7px 7px;
+        text-align: center;
+        color: darkgray; }
+      body request header div {
+        float: left;
+        text-align: center;
+        width: 180px;
+        padding-top: 22px; }
+        body request header div a {
+          font-size: 18px;
+          text-transform: capitalize;
+          color: #272a33;
+          opacity: 0.8; }
+          body request header div a:hover {
+            opacity: 1; }
+        body request header div h3 {
+          font-size: 12px;
+          color: gray; }
+      body request header > span {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 2px 10px;
+        text-align: center;
+        background: lightblue; }
+        body request header > span.small {
+          font-size: 12px; }
+        body request header > span.fe {
+          background: lightcyan; }
+        body request header > span.be {
+          background: antiquewhite; }
+    body request .owner-actions {
+      position: relative; }
+      body request .owner-actions p {
+        margin: 0;
+        height: 50px;
+        padding: 5px 30px 0 15px;
+        font-size: 14px;
+        line-height: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis; }
+        body request .owner-actions p.expanded:hover {
+          height: 145px; }
+      body request .owner-actions > div {
+        position: absolute;
+        top: -10px;
+        right: 10px; }
+        body request .owner-actions > div a {
+          display: block;
+          opacity: 0.3; }
+          body request .owner-actions > div a:hover {
+            opacity: 1; }
+    body request .reviewer-actions {
+      overflow: hidden;
+      border-top: 1px solid #F8F8F8;
+      padding: 5px;
+      padding-bottom: 10px;
+      height: 75px;
+      text-align: center; }
+      body request .reviewer-actions .reviewer {
+        float: left;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 700;
+        color: darkgray; }
+      body request .reviewer-actions > span {
+        display: inline-block;
+        color: lightgray; }
+        body request .reviewer-actions > span:first-child {
+          margin-top: 25px; }
+        body request .reviewer-actions > span.taken {
+          margin-top: 5px;
+          display: block; }
+          body request .reviewer-actions > span.taken.waiting {
+            margin-top: 15px; }
+          body request .reviewer-actions > span.taken.ended {
+            margin-top: 15px; }
+        body request .reviewer-actions > span.reviewed .fa-warning {
+          font-size: 13px;
+          color: darkorange; }
+      body request .reviewer-actions a {
+        display: inline-block;
+        margin-left: 5px;
+        opacity: 0.8; }
+        body request .reviewer-actions a:hover {
+          opacity: 1; }
+        body request .reviewer-actions a.take {
+          margin-left: 0px;
+          margin-top: 20px;
+          background: darkorange;
+          padding: 8px 70px; }
+        body request .reviewer-actions a.release {
+          background: darkred; }
+        body request .reviewer-actions a.complete {
+          background: darkgreen; }
+        body request .reviewer-actions a.reject {
+          background: darkorange; }
+      body request .reviewer-actions .actions {
+        padding-top: 5px; }
+    body request footer {
+      height: 5px;
+      opacity: 0.4; }
+      body request footer.posted {
+        background: darkred; }
+      body request footer.taken {
+        background: darkorange; }
+      body request footer.reviewed {
+        background: darkgreen; }
+  body review {
+    background: #fff;
+    display: inline-block;
+    font-weight: 700;
+    width: 305px; }
+    body review > div {
+      overflow: hidden;
+      position: relative; }
+      body review > div.first {
+        background: antiquewhite; }
+      body review > div span {
+        display: inline-block;
+        padding: 25px 20px;
+        float: left; }
+        body review > div span:first-child {
+          border-right: 1px solid lightgray;
+          margin-right: 5px; }
+        body review > div span:last-child {
+          padding: 0;
+          position: absolute;
+          right: 20px;
+          top: 25px; }
+      body review > div img {
+        float: left;
+        margin: 11px; }
+  body server {
+    display: inline-block;
+    background: #fff;
+    font-weight: 700;
+    width: 200px;
+    height: 200px; }
+    body server > div {
+      height: 100%;
+      position: relative;
+      text-align: center; }
+      body server > div.faded {
+        opacity: 0.2; }
+      body server > div h2 {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        line-height: 35px;
+        background: darkgreen;
+        color: #fff; }
+        body server > div h2.taken {
+          background: darkred; }
+        body server > div h2.down {
+          background: #272a33; }
+      body server > div > .btn-standard {
+        display: inline-block;
+        margin-top: 65px;
+        background: darkorange;
+        opacity: 0.8;
+        padding: 8px 35px; }
+        body server > div > .btn-standard:hover {
+          background: darkorange;
+          opacity: 1; }
+      body server > div > div {
+        padding-top: 32px; }
+        body server > div > div .user-image {
+          display: block;
+          margin: auto;
+          width: 60px;
+          height: 60px;
+          border-radius: 30px;
+          margin-bottom: 5px; }
+      body server > div aside {
+        padding-top: 5px; }
+        body server > div aside a {
+          padding-top: 5px;
+          margin-right: 2px;
+          font-size: 21px;
+          opacity: 0.3; }
+          body server > div aside a:hover {
+            opacity: 1; }
+          body server > div aside a.hint--bottom:before, body server > div aside a.hint--bottom:after {
+            left: 15%; }
+          body server > div aside a .fa-user-plus, body server > div aside a .fa-user-times {
+            font-size: 17px; }
+      body server > div ul {
+        position: absolute;
+        left: 7px;
+        top: 10px; }
+        body server > div ul li {
+          margin-bottom: 2px; }
+          body server > div ul li .user-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px; }
+      body server > div > span {
+        float: right;
+        padding: 5px;
+        font-size: 14px;
+        color: darkgrey; }
+  body server-env > div {
+    border-bottom: 1px solid #fff;
+    padding-top: 10px; }
+    body server-env > div > header {
+      font-size: 25px;
+      padding-bottom: 15px; }
+    body server-env > div > div {
+      margin-top: -10px;
+      padding: 0 80px 20px 0;
+      overflow: hidden; }
+      body server-env > div > div h3 {
+        font-size: 16px;
+        display: inline-block;
+        float: left;
+        opacity: 0.3; }
+      body server-env > div > div ul {
+        display: inline-block;
+        float: left;
+        overflow: hidden; }
+        body server-env > div > div ul li {
+          float: left;
+          margin-left: 5px; }
+          body server-env > div > div ul li .user-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px; }
+      body server-env > div > div > a {
+        opacity: 0.3;
+        font-size: 20px;
+        line-height: 30px;
+        margin-left: 10px; }
+        body server-env > div > div > a:hover {
+          opacity: 1; }
+    body server-env > div > ul {
+      overflow: hidden; }
+      body server-env > div > ul > li {
+        display: inline-block;
+        float: left;
+        margin: 0 20px 20px 0; }
+  body .popup {
+    font-family: 'Abel', sans-serif;
+    font-size: 16px;
+    text-align: center; }
+    body .popup header {
+      font-size: 17px;
+      margin-top: 10px;
+      font-weight: 700; }
+    body .popup > div {
+      margin-bottom: 15px; }
+      body .popup > div p {
+        margin: 0; }
+      body .popup > div label {
+        display: block; }
+      body .popup > div input, body .popup > div textarea {
+        display: block;
+        margin: auto;
+        width: 200px;
+        font-family: 'Abel', sans-serif;
+        font-size: 16px; }
+      body .popup > div textarea {
+        resize: none;
+        height: 60px; }
+      body .popup > div > div {
+        margin-bottom: 10px; }
+    body .popup footer {
+      color: red; }
+    body .popup.popup-edit-request header {
+      margin-bottom: 10px; }
+    body .popup.popup-edit-request .warning {
+      color: red; }
+    body .popup.popup-edit-request > div input, body .popup.popup-edit-request > div textarea {
+      width: 300px;
+      border: 1px solid lightgray; }
+      body .popup.popup-edit-request > div input.invalid, body .popup.popup-edit-request > div textarea.invalid {
+        border: 2px solid darkred; }
+    body .popup.popup-edit-request > div select {
+      font-size: 14px;
+      font-family: 'Abel', sans-serif;
+      border: 1px solid lightgray;
+      background: #fff; }
+    body .popup.popup-edit-request > div a {
+      opacity: 0.2; }
+      body .popup.popup-edit-request > div a:hover {
+        opacity: 1; }
+      body .popup.popup-edit-request > div a.used {
+        opacity: 1;
+        cursor: default; }
+    body .popup.popup-server-extend header {
+      font-size: 60px; }
+    body .popup.popup-server-extend input {
+      display: inline-block;
+      width: 40px; }
+      body .popup.popup-server-extend input.invalid {
+        border-style: solid;
+        border-color: darkred; }
+    body .popup.popup-server-extend label {
+      display: inline-block;
+      margin-left: 3px; }
+  body > aside {
+    float: left;
+    position: fixed;
+    background-color: #272a33;
+    color: black;
+    width: 180px;
+    height: 100%; }
+    body > aside > div {
+      padding: 20px 10px;
+      overflow: hidden;
+      color: #fff; }
+      body > aside > div img {
+        float: left;
+        cursor: pointer; }
+      body > aside > div span {
+        float: left;
+        max-width: 50px;
+        padding: 10px 10px 6px 10px;
+        line-height: 17px;
+        font-size: 15px; }
+      body > aside > div ul {
+        float: left;
+        font-size: 12px;
+        padding-top: 12px; }
+        body > aside > div ul li {
+          color: lightblue; }
+          body > aside > div ul li i {
+            padding-right: 5px;
+            font-size: 15px; }
+          body > aside > div ul li:first-child i {
+            padding-bottom: 5px; }
+    body > aside nav {
+      font-size: 14px; }
+      body > aside nav a {
+        display: block;
+        padding: 15px 15px 15px 20px;
+        color: #e1e1e3; }
+        body > aside nav a:hover, body > aside nav a.sel {
+          background-color: #18191f;
+          color: #fff; }
+        body > aside nav a.sel {
+          border-left: 2px solid lightblue; }
+        body > aside nav a i {
+          padding-right: 12px;
+          font-size: 15px; }
+      body > aside nav .manage {
+        padding-top: 200px; }
+  body > div {
+    padding-left: 180px; }
+    body > div > header {
+      height: 50px;
+      box-sizing: border-box;
+      padding: 15px;
+      background: #fff;
+      font-size: 16px;
+      position: relative; }
+      body > div > header .fa-search {
+        padding-right: 5px; }
+      body > div > header input[type="text"] {
+        display: inline-block;
+        border: none;
+        font-size: 14px;
+        width: 450px; }
+        body > div > header input[type="text"]:focus {
+          outline: none; }
+      body > div > header .fa-info-circle, body > div > header .fa-exclamation-circle {
+        float: right;
+        font-size: 20px;
+        cursor: pointer; }
+        body > div > header .fa-info-circle:hover, body > div > header .fa-exclamation-circle:hover {
+          color: gray; }
+      body > div > header .fa-exclamation-circle {
+        margin-right: 10px; }
+        body > div > header .fa-exclamation-circle.unread {
+          color: darkred; }
+      body > div > header > div {
+        background: lightblue;
+        width: 200px;
+        position: absolute;
+        top: 47px;
+        right: 30px;
+        padding: 8px;
+        font-size: 14px; }
+        body > div > header > div:before {
+          content: " ";
+          width: 0;
+          height: 0;
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid lightblue;
+          position: absolute;
+          top: -10px;
+          right: 11px; }
+        body > div > header > div > ul li {
+          border-bottom: 1px solid #fff;
+          padding: 5px 0 5px 0; }
+          body > div > header > div > ul li .user-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 10px;
+            float: left; }
+          body > div > header > div > ul li:last-child {
+            border-bottom: none; }
+    body > div .main-content {
+      padding: 30px; }
+      body > div .main-content .dashboard > section {
+        display: block;
+        clear: both;
+        padding: 10px 0;
+        border-bottom: 1px solid #fff;
+        overflow: hidden; }
+        body > div .main-content .dashboard > section.section-servers {
+          padding-bottom: 0; }
+          body > div .main-content .dashboard > section.section-servers > ul > li {
+            margin-left: 0; }
+          body > div .main-content .dashboard > section.section-servers server-env > div {
+            border-bottom: none; }
+          body > div .main-content .dashboard > section.section-servers server-env header {
+            opacity: 0.3;
+            font-size: 20px; }
+        body > div .main-content .dashboard > section.section-links {
+          border-bottom: none; }
+          body > div .main-content .dashboard > section.section-links ul li {
+            margin: 0 10px 20px 0; }
+            body > div .main-content .dashboard > section.section-links ul li a {
+              line-height: 30px; }
+        body > div .main-content .dashboard > section > header {
+          font-size: 25px;
+          padding-bottom: 20px; }
+        body > div .main-content .dashboard > section > ul {
+          float: left;
+          overflow: hidden;
+          display: inline-block; }
+          body > div .main-content .dashboard > section > ul > li {
+            display: inline-block;
+            float: left;
+            margin: 0 10px 10px 10px; }
+            body > div .main-content .dashboard > section > ul > li:first-child {
+              margin-left: 0; }
+            body > div .main-content .dashboard > section > ul > li.extra {
+              background: #fff;
+              width: 105px;
+              height: 234px; }
+          body > div .main-content .dashboard > section > ul.reviews {
+            width: 105px;
+            height: 234px;
+            background: #fff;
+            margin-left: 10px; }
+            body > div .main-content .dashboard > section > ul.reviews li {
+              display: block;
+              margin: 0; }
+              body > div .main-content .dashboard > section > ul.reviews li review {
+                overflow: hidden; }
+                body > div .main-content .dashboard > section > ul.reviews li review span {
+                  float: left; }
+                  body > div .main-content .dashboard > section > ul.reviews li review span:first-child {
+                    padding: 25px 0 0 10px;
+                    border-right: none; }
+      body > div .main-content .servers ul li {
+        display: block; }
+      body > div .main-content .requests {
+        overflow: hidden; }
+        body > div .main-content .requests > div {
+          padding-bottom: 20px; }
+          body > div .main-content .requests > div:first-child ul {
+            display: inline-block; }
+            body > div .main-content .requests > div:first-child ul li {
+              display: inline-block;
+              float: left;
+              margin: 0 10px 10px 10px; }
+          body > div .main-content .requests > div:first-child > a {
+            display: block;
+            margin-left: 10px;
+            width: 1260px;
+            text-align: center; }
+          body > div .main-content .requests > div.reviews {
+            padding-left: 10px; }
+            body > div .main-content .requests > div.reviews h2 {
+              font-size: 20px;
+              text-transform: uppercase;
+              padding: 30px 0 20px 0; }
+            body > div .main-content .requests > div.reviews ul li {
+              float: left;
+              margin: 0 20px 20px 0; }
+      body > div .main-content .manage-users h2, body > div .main-content .manage-servers h2 {
+        font-size: 25px;
+        display: inline-block;
+        margin-right: 20px; }
+      body > div .main-content .manage-users a, body > div .main-content .manage-servers a {
+        display: inline-block;
+        margin: 10px 0; }
+      body > div .main-content .manage-users input.invalid, body > div .main-content .manage-servers input.invalid {
+        border: 2px solid darkred; }
+      body > div .main-content .manage-users.manage-servers ul li, body > div .main-content .manage-servers.manage-servers ul li {
+        float: left;
+        padding: 10px 20px; }
+        body > div .main-content .manage-users.manage-servers ul li > input, body > div .main-content .manage-servers.manage-servers ul li > input {
+          font-size: 19px;
+          margin-bottom: 10px; }
+
+/* responsive hooks */
+@media screen and (max-width: 1554px) {
+  .requests .load-more {
+    width: 935px !important; } }
+
+@media screen and (max-width: 1229px) {
+  .requests .load-more {
+    width: 610px !important; } }
+
+@media screen and (max-width: 904px) {
+  .requests .load-more {
+    width: 285px !important;
+    padding: 15px 10px;
+    font-size: 18px; } }

@@ -1,0 +1,11 @@
+<section class="popup">
+    <header>Hi {{currentUser.name}}!</header> 
+    <div>
+        <p>Please provide a link to your photo:</p>
+        <img ng-src="{{currentUser.image}}" class="user-image"> 
+        <input type="text" ng-model="currentUser.image"/>
+    </div>
+    <a class="btn-standard" ng-click="saveUserImage()">Save</a>
+    <footer ng-if="!currentUser.image">Your Photo is empty! Providing a photo is mandatory...</footer>
+</section>
+
