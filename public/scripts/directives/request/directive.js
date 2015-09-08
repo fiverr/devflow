@@ -16,6 +16,7 @@ devflowApp.directive('request', ['userService', 'requestService', 'config', 'ngD
 
             $scope.smallLabels = requestConfig.useSmallLabels;
             $scope.rejectable = requestConfig.rejectable;
+            $scope.showTeam = requestConfig.showTeam;
 
             $scope.getEnv = function(request) {
                 return (requestService.getEnv(request));
@@ -23,6 +24,10 @@ devflowApp.directive('request', ['userService', 'requestService', 'config', 'ngD
 
             $scope.getNumber = function(request) {
                 return (requestService.getNumber(request));
+            };
+
+            $scope.getTeam = function(request) {
+                return (requestService.getTeam(request));
             };
 
             $scope.canEdit = function(request) {

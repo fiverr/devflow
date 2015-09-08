@@ -1,8 +1,9 @@
 var Request = require('../models/request'),
-    Review = require('../models/review'),
-    mailer = require('../services/mailer'),
+    Review  = require('../models/review'),
+    Repo    = require('../models/repo'),
+    mailer  = require('../services/mailer'),
     hipchat = require('../services/hipchat'),
-    github = require('../services/github');
+    github  = require('../services/github');
 
 
 function getRequestMsg(request, actionName) {
@@ -93,6 +94,17 @@ module.exports = {
         updateRequest(data, request);
         saveRequest(request);
         hipchat.sendMessage(request.type, data.user.name, getRequestMsg(data, 'added'), 'red');
+
+        if (config.requests.notifyRepos) {
+            var repoName = request.data.title.split('/')[4];
+
+            Repo.find({name: repoName}, function(err, repos) {
+                for (var repoIndex = 0; repoIndex < repos.length; repoIndex++) {
+                    hipchat.sendMessage(repos[repoIndex].hipchat_group, data.user.name, getRequestMsg(data, 'added'), 'red');
+                }
+            });
+        }
+
         return (request);
     },
 

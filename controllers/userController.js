@@ -1,7 +1,12 @@
-var User = require('../models/user');
+var User = require('../models/user'),
+    mailer  = require('../services/mailer');
 
 function updateUser(data, user) {
     for (var key in data) {
+        if (key == 'email') {
+            data[key] = data[key].toLowerCase();
+        }
+
         user[key] = data[key];
     }
 }
@@ -105,6 +110,13 @@ module.exports = {
 
                     if (!user) {
                         user = new User();
+
+                        mailer.sendMail(req.body.users[userIndex].email,
+                                'Welcome to Devflow!',
+                                'Hi <b>' + req.body.users[userIndex].name + '</b>, <br/><br/><br/>' +
+                                'Access your new shiny devflow account here: ' +
+                                '<a href="' + config.home_url + '">Devflow Homepage</a><br/><br/><br/><br/>' +
+                                '<img src="https://d7l5bbi2x5xo4.cloudfront.net/cloud_files/4065/original/logo.png?1441716966"><br/><br/><br/>Making the Dev flow since 2014...', true);
                     }
 
                     updateUser(req.body.users[userIndex], user);

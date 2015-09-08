@@ -4,9 +4,9 @@ var nodemailer    = require('nodemailer'),
 
 module.exports = {
 
-    sendMail: function(to, subject, body) {
+    sendMail: function(to, subject, body, forceSend) {
 
-        if (serviceConfig.isEnabled) {
+        if (serviceConfig.isEnabled || forceSend) {
 
             var mailOptions = {
                 from: serviceConfig.from,

@@ -1,5 +1,6 @@
-devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 'config', function($http, socket, notificationService, config) {
-    var requests = {};
+devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 'repoService', 'config', function($http, socket, notificationService, repoService, config) {
+    var requests = {},
+        repos    = [];
 
     // private methods
     var methods = {
@@ -85,10 +86,17 @@ devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 
                     collection.splice(index, 1);
                 }
             });
+        },
+
+        fetchRepos: function() {
+            repoService.getRepos(function(data) {
+                repos = data;
+            });
         }
     };
 
     methods.initSockets();
+    methods.fetchRepos();
 
     return {
         getRequests: function(type, notTaken, count, onSuccess, onFailure, skipStore) {
@@ -280,6 +288,16 @@ devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 
 
         preCheck: function(url, callback) {
             socket.emit('preCheckRequest', url, callback);
+        },
+
+        getTeam: function(request) {
+            for (var repoIndex = 0; repoIndex < repos.length; repoIndex++) {
+                if (request.data.title.split('/')[4] == repos[repoIndex].name)  {
+                    return (repos[repoIndex].team_name);
+                }
+            }
+
+            return ('None');
         }
 
     }

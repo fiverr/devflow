@@ -169,7 +169,11 @@ body {
                 float: left;
                 text-align: center;
                 width: 180px;
-                padding-top: 22px;
+                padding-top: 4px;
+
+                &.pad {
+                    padding-top: 22px;
+                }
 
                 a {
                     font-size: 18px;
@@ -185,6 +189,13 @@ body {
                 h3 {
                     font-size: 12px;
                     color: gray;
+                }
+
+                h4 {
+                    font-size: 14px;
+                    max-height: 18px;
+                    color: lightgray;
+                    margin: 0;
                 }
             }
 
@@ -734,6 +745,14 @@ body {
 
             .manage {
                 padding-top: 200px;
+
+                .fa-users {
+                    padding-right: 15px;    
+                }
+
+                .fa-code-fork {
+                    padding-right: 21px;
+                }
             }
         }
     }
@@ -978,7 +997,8 @@ body {
             }
 
             .manage-users,
-            .manage-servers {
+            .manage-servers,
+            .manage-repos {
                 h2 {
                     font-size: 25px;
                     display: inline-block;

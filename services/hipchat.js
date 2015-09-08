@@ -9,7 +9,7 @@ module.exports = {
         if (serviceConfig.isEnabled) {
 
             var data = querystring.stringify({
-                room_id: serviceConfig.rooms[roomID],
+                room_id: serviceConfig.rooms[roomID] || roomID,
                 from: from,
                 message: msg,
                 message_format: 'html',

@@ -1,7 +1,8 @@
-var index  = require('./controllers/indexController'),
+var index   = require('./controllers/indexController'),
     request = require('./controllers/requestController')
     server  = require('./controllers/serverController'),
-    user    = require('./controllers/userController');
+    user    = require('./controllers/userController'),
+    repo    = require('./controllers/repoController');
 
 module.exports = function(app) {
 
@@ -27,4 +28,7 @@ module.exports = function(app) {
     app.post('/server/rest/queue', server.rest.queue);
     app.post('/server/rest/unqueue', server.rest.unqueue);
     app.post('/server/rest/extend', server.rest.extend);
+
+    app.get('/repos', repo.getAllRepos);
+    app.post('/repos', repo.saveAllRepos);
 }

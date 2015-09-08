@@ -10,7 +10,8 @@
             {{request.user.name}}
         </h2>
 
-        <div>   
+        <div ng-class="{pad: !showTeam}">
+            <h4 ng-show="showTeam">{{getTeam(request)}}</h4>
             <a href="{{request.data.title}}" target="_blank">
                 {{getEnv(request)}}
                 <span>{{getNumber(request)}}</span>

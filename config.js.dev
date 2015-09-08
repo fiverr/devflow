@@ -5,6 +5,7 @@ module.exports = function(env) {
         sessionSecret: 'yourSecret',
         mongo: 'mongodb://localhost:27017/devflow',
         domain: 'yourdomain',
+        home_url: 'yoururl',
         google: {
             clientId: '',
             clientSecret: '',
@@ -20,7 +21,10 @@ module.exports = function(env) {
         github: {
             organization: 'yourorg',
             accessToken: ''
-        }
+        },
+        requests: {
+            notifyRepos: false,
+        },
         jobs: {
             serverRelease: {
                 timeout: 1000 * 60 * 5
@@ -39,7 +43,8 @@ module.exports = function(env) {
                     useSmallLabels: true,
                     constantEnv: 'Graylog Link',
                     rejectable: false,
-                    selfTakable: true
+                    selfTakable: true,
+                    showTeam: false
                 },
                 pullrequest: {
                     types: ['BE', 'FE', 'Android', 'IOS'],
@@ -47,7 +52,8 @@ module.exports = function(env) {
                     linkTitle: 'Github Link',
                     linkRegex: '^https://github.com/',
                     hasNumber: true,
-                    rejectable: true
+                    rejectable: true,
+                    showTeam: true
                 }
             },
 
@@ -81,6 +87,9 @@ module.exports = function(env) {
                     graylog: 2,
                     server: 3
                 }
+            },
+            requests: {
+                notifyRepos: true,
             },
             mail: {
                 isEnabled: false,

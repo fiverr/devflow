@@ -1,0 +1,32 @@
+<section class="manage-repos">
+    <h2>Repository Management</h2>
+
+    <a class="btn-standard" ng-click ="saveRepos()" ng-disabled="saving">
+        <i class="fa fa-circle-o-notch fa-spin" ng-if="saving"></i>
+        <span ng-show="!saving">Save</span>
+        <span ng-show="saving">Saving</span>
+    </a>
+
+    <table class="data-tbl">
+        <thead>
+            <tr>
+                <th>Repo Name</th>
+                <th>Team Name</th>
+                <th>HipChat Group</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="add-new">
+            <td colspan="4"><a ng-click="addRepo()"><i class="fa fa-plus-circle"></i></a></td>
+        </tr>
+        <tr ng-repeat="repo in repos | filter: query">
+            <td><input type="text" ng-model="repo.name" placeholder="New Repo" ng-change="fieldChanged(repo, 'name')" ng-class="{invalid: isInvalid(repo, 'name')}"></td>
+            <td><input type="text" ng-model="repo.team_name" ng-change="fieldChanged(repo, 'team_name')" ng-class="{invalid: isInvalid(repo, 'team_name')}"></td>
+            <td><input type="text" ng-model="repo.hipchat_group" ng-change="fieldChanged(repo, 'hipchat_group')" ng-class="{invalid: isInvalid(repo, 'hipchat_group')}"></td>
+            <td><a ng-click="deleteRepo(repo)"><i class="fa fa-times-circle-o"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>

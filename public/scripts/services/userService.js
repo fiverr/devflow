@@ -28,7 +28,7 @@ devflowApp.factory('userService', ['$http', function($http) {
         newUser: function() {
             return ({ id: null,
                       email: null,
-                      name: 'New User',
+                      name: null,
                       image: null,
                       associated: false,
                       role: 'user' });
