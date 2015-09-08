@@ -28,7 +28,7 @@ devflowApp.controller('reposController', ['$scope', 'repoService',
 
                     fieldCounts[fieldValue]++;
 
-                    if (fieldCounts[fieldValue] > 1) {
+                    if (fieldCounts[fieldValue] > 1 && fieldName == 'name') {
                         setInvalid($scope.repos[0][fieldName] == fieldValue ? 0 : i, fieldName);
                         return (false);
                     }
