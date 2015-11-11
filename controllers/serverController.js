@@ -41,7 +41,7 @@ module.exports = {
 
         try {
 
-            var query = ServerEnv.find({}).sort('name');
+            var query = ServerEnv.find({}).sort('order');
 
             query.exec(function(err, serverEnvs) {
 

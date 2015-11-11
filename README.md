@@ -45,8 +45,8 @@ An application allowing to monitor the state of servers and requests of differen
 
     Servers:
 
-    db.ServerEnvironments.insert({name: "Env1", queue: [], servers: [{environment: "Env1", name:"Server11", queue: [], taken_since: null, user: null, url: null},{environment: "Env1", name:"Server12", queue: [], taken_since: null, user: null, url: null}]})
-    db.ServerEnvironments.insert({name: "Env2", queue: [], servers: [{environment: "Env2", name:"Server21", queue: [], taken_since: null, user: null, url: null},{environment: "Env2", name:"Server22", queue: [], taken_since: null, user: null, url: null}]})
+    db.ServerEnvironments.insert({name: "Env1", order: 1, queue: [], servers: [{environment: "Env1", name:"Server11", queue: [], taken_since: null, user: null, url: null},{environment: "Env1", name:"Server12", queue: [], taken_since: null, user: null, url: null}]})
+    db.ServerEnvironments.insert({name: "Env2", order: 2, queue: [], servers: [{environment: "Env2", name:"Server21", queue: [], taken_since: null, user: null, url: null},{environment: "Env2", name:"Server22", queue: [], taken_since: null, user: null, url: null}]})
 
   Please Run "npm install" on first use or if changing node packages.
 
