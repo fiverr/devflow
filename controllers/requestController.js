@@ -1,8 +1,8 @@
-var Request = require('../models/request'),
-    Review  = require('../models/review'),
-    Repo    = require('../models/repo'),
-    mailer  = require('../services/mailer'),
-    hipchat = require('../services/hipchat'),
+var Request  = require('../models/request'),
+    Review   = require('../models/review'),
+    Repo     = require('../models/repo'),
+    mailer   = require('../services/mailer'),
+    notifier = require('../services/notifier'),
     github  = require('../services/github');
 
 
@@ -93,14 +93,16 @@ module.exports = {
         var request = new Request();
         updateRequest(data, request);
         saveRequest(request);
-        hipchat.sendMessage(request.type, data.user.name, getRequestMsg(data, 'added'), 'red');
+        notifier.sendMessage(request.type, data.user.name, getRequestMsg(data, 'added'), 'red');
 
         if (config.requests.notifyRepos) {
             var repoName = request.data.title.split('/')[4];
 
             Repo.find({name: repoName}, function(err, repos) {
                 for (var repoIndex = 0; repoIndex < repos.length; repoIndex++) {
-                    hipchat.sendMessage(repos[repoIndex].hipchat_group, data.user.name, getRequestMsg(data, 'added'), 'red');
+                    var currentRepo = repos[repoIndex];
+                    notifier.sendRoomsMessage({hipchat: currentRepo.hipchat_group, slack: currentRepo.slack_group},
+                                               data.user.name, getRequestMsg(data, 'added'), 'red');
                 }
             });
         }
@@ -110,7 +112,7 @@ module.exports = {
 
     delete: function (data) {
         Request.remove({ _id: data._id }).exec();
-        hipchat.sendMessage(data.type, data.user.name, getRequestMsg(data, 'deleted'), 'green');
+        notifier.sendMessage(data.type, data.user.name, getRequestMsg(data, 'deleted'), 'green');
     },
 
     nudge: function (data) {
@@ -121,7 +123,7 @@ module.exports = {
                 updateRequest(data, request);
                 saveRequest(request);
 
-                hipchat.sendMessage(request.type, data.user.name, getRequestMsg(data, 'NUDGED'), 'red');
+                notifier.sendMessage(request.type, data.user.name, getRequestMsg(data, 'NUDGED'), 'red');
             }
         });
     },
@@ -151,7 +153,7 @@ module.exports = {
                                 'Request: <a href = "' + data.data.title  + '">' + data.data.title + '</a><br/><br/><br/><br/>' +
                                 'Say Thanks :)');
 
-                hipchat.sendMessage(request.type, data.reviewer.name, getRequestMsg(data, 'took'), 'yellow');
+                notifier.sendMessage(request.type, data.reviewer.name, getRequestMsg(data, 'took'), 'yellow');
             }
         });
     },
@@ -173,7 +175,7 @@ module.exports = {
                             'Request: <a href = "' + data.data.title  + '">' + data.data.title + '</a><br/><br/><br/><br/>' +
                             'Say Thanks :)');
 
-            hipchat.sendMessage(request.type, data.reviewer.name, getRequestMsg(data, 'reviewed') , 'green');
+            notifier.sendMessage(request.type, data.reviewer.name, getRequestMsg(data, 'reviewed') , 'green');
         });
     },
 

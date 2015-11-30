@@ -20,7 +20,7 @@ devflowApp.controller('reposController', ['$scope', 'repoService',
 
                 for (var fieldIndex=0; fieldIndex < fieldsToCheck.length; fieldIndex++) {
                     var fieldName = fieldsToCheck[fieldIndex],
-                        fieldValue = repo[fieldName];
+                        fieldValue = repo[fieldName] || '';
 
                     if (!fieldCounts[fieldValue]) {
                         fieldCounts[fieldValue] = 0;

@@ -1,5 +1,5 @@
 var Review           = require('../models/review'),
-    hipchat          = require('../services/hipchat'),
+    notifier         = require('../services/notifier'),
     jobConfig        = config.jobs.clearReviewers,
     timerId          = -1;
 
@@ -44,7 +44,7 @@ module.exports = {
                         }
                     }
 
-                    hipchat.sendMessage(jobConfig.announcementRoom, 'Devflow', topReview.user.name + ' is reviewer of the week!', 'purple');
+                    notifier.sendMessage(jobConfig.announcementRoom, 'Devflow', topReview.user.name + ' is reviewer of the week!', 'purple');
                 });
             }
             

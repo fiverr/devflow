@@ -11,13 +11,14 @@ An application allowing to monitor the state of servers and requests of differen
   
   * GitHub
   * HipChat
+  * Slack
   * Email
 
 <h2>Configuration:</h2>
   
   config.js
 
-  * Server Configuration - global, google, hipchat, mail and jobs settings.
+  * Server Configuration - global, google, hipchat, slack, mail and jobs settings.
   * Client Configuration - display setting for request types, links and the page refresh interval.
 
   See examples in the config.js.dev in the project 

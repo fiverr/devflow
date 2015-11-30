@@ -18,6 +18,10 @@ module.exports = function(env) {
             isEnabled: false,
             rooms: {}
         },
+        slack: {
+            isEnabled: false,
+            rooms: {}
+        },
         github: {
             organization: 'yourorg',
             accessToken: ''

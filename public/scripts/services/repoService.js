@@ -19,7 +19,8 @@ devflowApp.factory('repoService', ['$http', function($http) {
             return {
                 name: null,
                 team_name: null,
-                hipchat_group: null
+                hipchat_group: null,
+                slack_group: null
             }
         },
 

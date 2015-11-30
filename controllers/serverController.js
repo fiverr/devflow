@@ -1,6 +1,6 @@
 var ServerEnv = require('../models/serverEnvironment'),
-    mailer = require('../services/mailer'),
-    hipchat = require('../services/hipchat');
+    mailer    = require('../services/mailer'),
+    notifier  = require('../services/notifier');
 
 function saveServerEnv(serverEnv) {
     serverEnv.save(function (err) {
@@ -16,7 +16,7 @@ function updateEnv(data, env) {
     }
 }
 
-function getHipChatMsg(server, actionName) {
+function getNotifierMsg(server, actionName) {
     return ('I just ' + actionName + ' ' + server.name)
 }
 
@@ -139,7 +139,7 @@ module.exports = {
 
             env.take(data.name, data.user, data.release_date);
             saveServerEnv(env);
-            hipchat.sendMessage('server', data.user.name, getHipChatMsg(data, 'took'), 'red');
+            notifier.sendMessage('server', data.user.name, getNotifierMsg(data, 'took'), 'red');
 
             if (callback) { callback(env); }
         });
@@ -163,7 +163,7 @@ module.exports = {
             env.release(data.name);
             saveServerEnv(env);
 
-            hipchat.sendMessage('server', "Devflow", data.name + " released", "green");
+            notifier.sendMessage('server', "Devflow", data.name + " released", "green");
 
             if (data.user) {
                 mailer.sendMail(data.user.email, 
@@ -173,7 +173,7 @@ module.exports = {
                             '<i>' + data.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
                             'The server has been marked as taken by you automatically :)');
 
-                hipchat.sendMessage('server', data.user.name, getHipChatMsg(data, 'took by queue'), 'red');
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data, 'took by queue'), 'red');
             }
 
             if (callback) { callback(env); }
@@ -187,7 +187,7 @@ module.exports = {
             env.queueServer(data.server.name, data.user);
             saveServerEnv(env);
 
-            hipchat.sendMessage('server', data.user.name, getHipChatMsg(data.server, 'queued in'), 'yellow');
+            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'queued in'), 'yellow');
 
             if (callback) { callback(env); }
         });
@@ -200,7 +200,7 @@ module.exports = {
             env.unqueueServer(data.server.name, data.user);
             saveServerEnv(env);
 
-            hipchat.sendMessage('server', data.user.name, getHipChatMsg(data.server, 'unqueued in'), 'green');
+            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'unqueued in'), 'green');
 
             if (callback) { callback(env); }
         });
@@ -213,7 +213,7 @@ module.exports = {
             env.queueEnv(data.user);
             saveServerEnv(env);
 
-            hipchat.sendMessage('server', data.user.name, getHipChatMsg(data.env, 'queued in ENV: '), 'red');
+            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'queued in ENV: '), 'red');
 
             if (callback) { callback(env); }
         });
@@ -226,7 +226,7 @@ module.exports = {
             env.unqueueEnv(data.user);
             saveServerEnv(env);
 
-            hipchat.sendMessage('server', data.user.name, getHipChatMsg(data.env, 'unqueued in ENV: '), 'green');
+            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'unqueued in ENV: '), 'green');
 
             if (callback) { callback(env); }
         });
@@ -240,7 +240,7 @@ module.exports = {
             saveServerEnv(env);
 
             var strState = data.is_down ? 'DOWN' : 'UP';
-            hipchat.sendMessage('server', 'Devflow', data.name + ' has been marked as ' + strState, 'red');
+            notifier.sendMessage('server', 'Devflow', data.name + ' has been marked as ' + strState, 'red');
 
             if (callback) { callback(env); }
         });
