@@ -162,7 +162,7 @@ module.exports = {
         Request.findById(data._id, function(err, request) {
             if (err) { throw err; }
 
-            request.complete(data.rejected);
+            request.complete(data.rejected, data.rejection_reason);
             saveRequest(request);
 
             addReview(data);

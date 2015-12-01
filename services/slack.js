@@ -10,6 +10,7 @@ module.exports = {
 
             msg = msg.replace('I', from);
             msg = msg.replace(/<a\b[^>]*>/i, '').replace(/<\/a>/i, '');
+            msg = msg.replace(/<b\b[^>]*>/i, '*').replace(/<\/b>/i, '*');
 
             slack.api('chat.postMessage', {
                 username: 'devflow',

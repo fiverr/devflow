@@ -592,6 +592,10 @@ body {
                 width: 200px;
                 font-family: 'Abel', sans-serif;
                 font-size: 16px;
+
+                &[type='radio'] {
+                    display: inline-block;
+                }
             }
 
             textarea {
@@ -667,6 +671,16 @@ body {
             label {
                 display: inline-block;
                 margin-left: 3px;
+            }
+        }
+
+        &.popup-rejection-reasons {
+            form {
+                text-align: left;
+
+                input[type='radio'] {
+                    width: auto;
+                }
             }
         }
     }

@@ -180,7 +180,18 @@ devflowApp.directive('request', ['userService', 'requestService', 'config', 'ngD
             };
 
             $scope.reject = function(request) {
-                requestService.complete(request, true);
+                ngDialog.open({
+                    template: '/views/templates/popups/rejectionReasons.html',
+                    controller: ['$scope', function($scope) {
+                        $scope.reasons = requestConfig.rejectionReasons;
+                        $scope.selectedReason = { reason: Object.keys($scope.reasons)[0] };
+
+                        $scope.reject = function() {
+                            requestService.complete(request, true, $scope.selectedReason.reason);
+                            $scope.closeThisDialog();
+                        }
+                    }]
+                });
             };
 
             $scope.isReviewed = function(request) {

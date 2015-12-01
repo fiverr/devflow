@@ -356,6 +356,8 @@ body {
         width: 200px;
         font-family: 'Abel', sans-serif;
         font-size: 16px; }
+        body .popup > div input[type='radio'], body .popup > div textarea[type='radio'] {
+          display: inline-block; }
       body .popup > div textarea {
         resize: none;
         height: 60px; }
@@ -395,6 +397,10 @@ body {
     body .popup.popup-server-extend label {
       display: inline-block;
       margin-left: 3px; }
+    body .popup.popup-rejection-reasons form {
+      text-align: left; }
+      body .popup.popup-rejection-reasons form input[type='radio'] {
+        width: auto; }
   body > aside {
     float: left;
     position: fixed;

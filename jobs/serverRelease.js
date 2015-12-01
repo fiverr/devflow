@@ -16,7 +16,7 @@ module.exports = {
                 for (var serverIndex = 0; serverIndex < servers.length; serverIndex++) {
                     var server = servers[serverIndex].server;
 
-                    serverController.release(server);
+                    serverController.release(server.toObject());
 
                     // update current object for socket only
                     server.release(servers[serverIndex].env);
