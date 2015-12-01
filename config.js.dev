@@ -57,7 +57,8 @@ module.exports = function(env) {
                     linkRegex: '^https://github.com/',
                     hasNumber: true,
                     rejectable: true,
-                    showTeam: true
+                    showTeam: true,
+                    rejectionReasons: {}
                 }
             },
 
