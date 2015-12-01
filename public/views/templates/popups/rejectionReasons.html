@@ -1,0 +1,13 @@
+<section class="popup popup-rejection-reasons">
+    <header>Main Alert Reason</header>
+    <div>
+        <form>
+            <label ng-repeat="(reason, reasonText) in reasons">
+                <input type="radio" ng-model="selectedReason.reason" name="rejectionReason" ng-value="reason">
+                {{reasonText}}
+            </label>
+        </form>
+    </div>
+
+    <a class="btn-standard" ng-click="reject()">Save</a>
+</section>
