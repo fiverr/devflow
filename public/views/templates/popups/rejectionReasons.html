@@ -3,7 +3,7 @@
     <div>
         <form>
             <label ng-repeat="(reason, reasonText) in reasons">
-                <input type="radio" ng-model="selectedReason.reason" name="rejectionReason" ng-value="reason">
+                <input type="checkbox" name="rejectionReasons" ng-value="reason" ng-click="toggleRejectionReason(reason)" ng-checked="isSelected(reason)">
                 {{reasonText}}
             </label>
         </form>

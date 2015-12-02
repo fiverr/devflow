@@ -183,13 +183,28 @@ devflowApp.directive('request', ['userService', 'requestService', 'config', 'ngD
                 ngDialog.open({
                     template: '/views/templates/popups/rejectionReasons.html',
                     controller: ['$scope', function($scope) {
+                        request.rejection_reasons = [];
+                        $scope.request = request;
                         $scope.reasons = requestConfig.rejectionReasons;
-                        $scope.selectedReason = { reason: Object.keys($scope.reasons)[0] };
 
                         $scope.reject = function() {
-                            requestService.complete(request, true, $scope.selectedReason.reason);
+                            requestService.complete(request, true);
                             $scope.closeThisDialog();
-                        }
+                        };
+
+                        $scope.toggleRejectionReason = function(reason) {
+                            var reasonIndex = $scope.request.rejection_reasons.indexOf(reason);
+
+                            if (reasonIndex > -1) {
+                                $scope.request.rejection_reasons.splice(reasonIndex, 1);
+                            } else {
+                                $scope.request.rejection_reasons.push(reason);
+                            }
+                        };
+
+                        $scope.isSelected = function(reason) {
+                            return ($scope.request.rejection_reasons.indexOf(reason) > -1);
+                        };
                     }]
                 });
             };

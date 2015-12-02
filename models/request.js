@@ -12,7 +12,7 @@ var requestSchema = new mongoose.Schema({
     taken_date: Date,
     reviewed_date: Date,
     rejected: Boolean,
-    rejection_reason: String
+    rejection_reasons: [String]
 });
 
 requestSchema.methods.take = function(user) {
@@ -22,12 +22,12 @@ requestSchema.methods.take = function(user) {
     this.sort_order = 2;
 }
 
-requestSchema.methods.complete = function(rejected, rejection_reason) {
+requestSchema.methods.complete = function(rejected, rejection_reasons) {
     this.reviewed_date = new Date();
     this.state = 'reviewed';
     this.sort_order = 3;
     this.rejected = rejected;
-    this.rejection_reason = rejection_reason;
+    this.rejection_reasons = rejection_reasons;
 }
 
 module.exports = mongoose.model('Request', requestSchema, 'Requests');

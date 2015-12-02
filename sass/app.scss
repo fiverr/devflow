@@ -593,7 +593,7 @@ body {
                 font-family: 'Abel', sans-serif;
                 font-size: 16px;
 
-                &[type='radio'] {
+                &[type='radio'], &[type='checkbox'] {
                     display: inline-block;
                 }
             }
@@ -678,7 +678,7 @@ body {
             form {
                 text-align: left;
 
-                input[type='radio'] {
+                input[type='checkbox'] {
                     width: auto;
                 }
             }

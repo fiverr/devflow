@@ -356,7 +356,7 @@ body {
         width: 200px;
         font-family: 'Abel', sans-serif;
         font-size: 16px; }
-        body .popup > div input[type='radio'], body .popup > div textarea[type='radio'] {
+        body .popup > div input[type='radio'], body .popup > div input[type='checkbox'], body .popup > div textarea[type='radio'], body .popup > div textarea[type='checkbox'] {
           display: inline-block; }
       body .popup > div textarea {
         resize: none;
@@ -399,7 +399,7 @@ body {
       margin-left: 3px; }
     body .popup.popup-rejection-reasons form {
       text-align: left; }
-      body .popup.popup-rejection-reasons form input[type='radio'] {
+      body .popup.popup-rejection-reasons form input[type='checkbox'] {
         width: auto; }
   body > aside {
     float: left;

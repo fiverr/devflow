@@ -189,17 +189,11 @@ devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 
                         rejected: false });
         },
 
-        complete: function(request, rejected, rejectionReason) {
+        complete: function(request, rejected) {
             request.state = 'reviewed';
             request.sort_order = 3;
             request.reviewed_date = new Date();
-            
-            if (rejected) {
-                request.rejected = true;
-                request.rejection_reason = rejectionReason;
-            } else {
-                request.rejected = false;
-            }
+            request.rejected = rejected ? true : false;
 
             socket.emit('completeRequest', request);
         },
