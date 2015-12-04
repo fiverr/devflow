@@ -160,20 +160,20 @@ module.exports = {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
             if (err) { throw err; } 
 
-            env.release(data.name);
+            var server = env.release(data.name);
             saveServerEnv(env);
 
-            notifier.sendMessage('server', "Devflow", data.name + " released", "green");
+            notifier.sendMessage('server', "Devflow", server.name + " released", "green");
 
-            if (data.user) {
-                mailer.sendMail(data.user.email, 
-                            data.name + ' is finally free for you',
-                            'Hi <b>' + data.user.name + '</b>, <br/><br/><br/>' + 
+            if (server.user) {
+                mailer.sendMail(server.user.email, 
+                            server.name + ' is finally free for you',
+                            'Hi <b>' + server.user.name + '</b>, <br/><br/><br/>' + 
                             'Finally, <br/> <br/>' +
-                            '<i>' + data.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
+                            '<i>' + server.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
                             'The server has been marked as taken by you automatically :)');
 
-                notifier.sendMessage('server', data.user.name, getNotifierMsg(data, 'took by queue'), 'red');
+                notifier.sendMessage('server', server.user.name, getNotifierMsg(server, 'took by queue'), 'red');
             }
 
             if (callback) { callback(env); }

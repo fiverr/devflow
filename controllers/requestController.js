@@ -11,7 +11,7 @@ function getRequestMsg(request, actionName) {
         msg = 'I just ' +  actionName + ' a ' +  subType + ' request: <a href="' + request.data.title + '">' + request.data.title + '</a>';
 
     if (request.reviewer) {
-        msg += ' by ' + request.user.name;
+        msg += ' by @' + request.user.email.split('@')[0] + ' (' + request.user.name + ')';
     }
 
     if (request.rejected) {

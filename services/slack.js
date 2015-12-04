@@ -17,6 +17,7 @@ module.exports = {
                 text: msg,
                 icon_url: serviceConfig.icon,
                 channel: serviceConfig.rooms[roomID] || roomID,
+                link_names: 1
             }, function(err, response){
                 console.log(response);
             });

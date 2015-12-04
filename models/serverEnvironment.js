@@ -92,7 +92,9 @@ environmentSchema.methods.setReleaseDate = function(serverName, date) {
 }
 
 environmentSchema.methods.release = function(serverName) {
-    findServerbyName(this, serverName).release(this);
+    var server = findServerbyName(this, serverName);
+    server.release(this);
+    return (server);
 }
 
 environmentSchema.methods.queueServer = function(serverName, user) {
