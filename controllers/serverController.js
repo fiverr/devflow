@@ -160,7 +160,7 @@ module.exports = {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
             if (err) { throw err; } 
 
-            var server = env.release(data.name);
+            var server = env.release(data.name).toObject();
             saveServerEnv(env);
 
             notifier.sendMessage('server', "Devflow", server.name + " released", "green");
