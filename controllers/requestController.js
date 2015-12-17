@@ -23,7 +23,6 @@ function getRequestMsg(request, actionName) {
         msg += ' [Owner: ' + request.tag.owner + ']';
     }
 
-    console.log(msg);
     return (msg);
 }
 
