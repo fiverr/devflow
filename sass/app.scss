@@ -577,6 +577,7 @@ body {
 
         > div {
             margin-bottom: 15px;
+            overflow: hidden;
 
             p {
                 margin: 0;
@@ -605,6 +606,16 @@ body {
 
             > div {
                 margin-bottom: 10px;
+
+                &.single-line {
+                    margin: 10px 0 10px 60px;
+                    text-align: left;
+                    
+                    label {
+                        display: inline-block;
+                        min-width: 35px;
+                    }
+                }
             }
         }
 
@@ -758,7 +769,8 @@ body {
             }
 
             .manage {
-                padding-top: 200px;
+                margin-top: 20px;
+                border-top: 1px solid black;
 
                 .fa-users {
                     padding-right: 15px;    
@@ -1010,9 +1022,7 @@ body {
                 }
             }
 
-            .manage-users,
-            .manage-servers,
-            .manage-repos {
+            .manage-model {
                 h2 {
                     font-size: 25px;
                     display: inline-block;

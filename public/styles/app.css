@@ -345,7 +345,8 @@ body {
       margin-top: 10px;
       font-weight: 700; }
     body .popup > div {
-      margin-bottom: 15px; }
+      margin-bottom: 15px;
+      overflow: hidden; }
       body .popup > div p {
         margin: 0; }
       body .popup > div label {
@@ -363,6 +364,12 @@ body {
         height: 60px; }
       body .popup > div > div {
         margin-bottom: 10px; }
+        body .popup > div > div.single-line {
+          margin: 10px 0 10px 60px;
+          text-align: left; }
+          body .popup > div > div.single-line label {
+            display: inline-block;
+            min-width: 35px; }
     body .popup footer {
       color: red; }
     body .popup.popup-edit-request header {
@@ -447,7 +454,8 @@ body {
           padding-right: 12px;
           font-size: 15px; }
       body > aside nav .manage {
-        padding-top: 200px; }
+        margin-top: 20px;
+        border-top: 1px solid black; }
         body > aside nav .manage .fa-users {
           padding-right: 15px; }
         body > aside nav .manage .fa-code-fork {
@@ -590,19 +598,19 @@ body {
             body > div .main-content .requests > div.reviews ul li {
               float: left;
               margin: 0 20px 20px 0; }
-      body > div .main-content .manage-users h2, body > div .main-content .manage-servers h2, body > div .main-content .manage-repos h2 {
+      body > div .main-content .manage-model h2 {
         font-size: 25px;
         display: inline-block;
         margin-right: 20px; }
-      body > div .main-content .manage-users a, body > div .main-content .manage-servers a, body > div .main-content .manage-repos a {
+      body > div .main-content .manage-model a {
         display: inline-block;
         margin: 10px 0; }
-      body > div .main-content .manage-users input.invalid, body > div .main-content .manage-servers input.invalid, body > div .main-content .manage-repos input.invalid {
+      body > div .main-content .manage-model input.invalid {
         border: 2px solid darkred; }
-      body > div .main-content .manage-users.manage-servers ul li, body > div .main-content .manage-servers.manage-servers ul li, body > div .main-content .manage-repos.manage-servers ul li {
+      body > div .main-content .manage-model.manage-servers ul li {
         float: left;
         padding: 10px 20px; }
-        body > div .main-content .manage-users.manage-servers ul li > input, body > div .main-content .manage-servers.manage-servers ul li > input, body > div .main-content .manage-repos.manage-servers ul li > input {
+        body > div .main-content .manage-model.manage-servers ul li > input {
           font-size: 19px;
           margin-bottom: 10px; }
 

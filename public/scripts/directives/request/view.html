@@ -11,7 +11,10 @@
         </h2>
 
         <div ng-class="{pad: !showTeam}">
-            <h4 ng-show="showTeam">{{getTeam(request)}}</h4>
+            <h4 ng-show="showTeam">
+                <span ng-if="request.tag" class="hint--left" data-hint="{{request.tag.name}}"><i class="fa fa-tag"></i></span>
+                {{getTeam(request)}}
+            </h4>
             <a href="{{request.data.title}}" target="_blank">
                 {{getEnv(request)}}
                 <span>{{getNumber(request)}}</span>

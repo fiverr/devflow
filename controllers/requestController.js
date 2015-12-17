@@ -1,9 +1,10 @@
 var Request  = require('../models/request'),
     Review   = require('../models/review'),
     Repo     = require('../models/repo'),
+    Tag      = require('../models/tag'),
     mailer   = require('../services/mailer'),
     notifier = require('../services/notifier'),
-    github  = require('../services/github');
+    github   = require('../services/github');
 
 
 function getRequestMsg(request, actionName) {
@@ -18,6 +19,11 @@ function getRequestMsg(request, actionName) {
         msg += ' - <b>requires additional work</b>';
     }
 
+    if (config.requests.notifyTags && request.tag) {
+        msg += ' [Owner: ' + request.tag.owner + ']';
+    }
+
+    console.log(msg);
     return (msg);
 }
 

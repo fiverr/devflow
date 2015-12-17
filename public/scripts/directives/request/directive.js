@@ -1,4 +1,4 @@
-devflowApp.directive('request', ['userService', 'requestService', 'config', 'ngDialog', function(userService, requestService, config, ngDialog) {
+devflowApp.directive('request', ['userService', 'requestService', 'tagService', 'config', 'ngDialog', function(userService, requestService, tagService, config, ngDialog) {
     return {
         restrict: 'E',
         scope: {
@@ -58,6 +58,10 @@ devflowApp.directive('request', ['userService', 'requestService', 'config', 'ngD
                         $scope.invalidFields = {title: false, desc: false};
                         $scope.shouldSquash = false;
                         $scope.mergeable = true;
+
+                        tagService.getTags(function(tags) {
+                            $scope.tags = tags;  
+                        });
 
                         var validateRequest = function(request) {
                             if (!request.data.title || !typeRegex.test(request.data.title)) {

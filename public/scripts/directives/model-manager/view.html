@@ -1,0 +1,33 @@
+<section class="manage-model">
+    <h2>{{caption}} Management</h2>
+
+    <a class="btn-standard" ng-click ="saveModels()" ng-disabled="saving">
+        <i class="fa fa-circle-o-notch fa-spin" ng-if="saving"></i>
+        <span ng-show="!saving">Save</span>
+        <span ng-show="saving">Saving</span>
+    </a>
+
+    <table class="data-tbl">
+        <thead>
+            <tr>
+                <th ng-repeat="field in fields">{{field.name}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr class="add-new">
+            <td colspan="{{fields.length + 1}}"><a ng-click="addModel()"><i class="fa fa-plus-circle"></i></a></td>
+        </tr>
+        <tr ng-repeat="model in models | filter: query">
+            <td ng-repeat="field in fields">
+                <img ng-if="field.type == 'image'" ng-class="field.viewClass" ng-src="{{model[field.key]}}">
+                <input ng-if="field.type == 'checkbox'" type="checkbox" ng-model="model[field.key]">
+                <input ng-if="field.type == 'text'" ng-model="model[field.key]" placeholder="{{field.placeholder}}" ng-change="fieldChanged(model, field.key)" ng-class="{invalid: isInvalid(model, field.key)}">
+                <span ng-if="field.type == 'readonly'">{{model[field.key]}}</span>
+            </td>
+            <td><a ng-click="deleteModel(model)"><i class="fa fa-times-circle-o"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>

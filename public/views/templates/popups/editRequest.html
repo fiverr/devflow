@@ -9,13 +9,17 @@
             <label>Description:</label>
             <textarea ng-model="request.data.desc" ng-class="{invalid: invalidFields.desc}" ng-change="fieldChanged('desc')"></textarea>
         </div>
-        <div>
+        <div class="single-line">
             <label>{{typeTitle}}:</label>
             <select ng-disabled="additionalType" ng-model="request.data.sub_type" ng-options="requestType for requestType in requestTypes"></select>
 
             <a ng-if="isNew" ng-class="{used: additionalType}"><i class="fa fa-plus-circle" ng-click="addAdditionalType()"></i></a>
             <select ng-if="additionalType" ng-model="$parent.additionalType" ng-options="requestType for requestType in additionalTypes"></select>
             <a ng-if="additionalType"><i class="fa fa-times-circle" ng-click="removeAdditionalType()"></i></a>
+        </div>
+        <div class="single-line">
+            <label>Tag:</label>
+            <select ng-model="request.tag" ng-options="tag.name for tag in tags"></select>
         </div>
     </div>
 

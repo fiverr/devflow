@@ -31,6 +31,10 @@ devflowApp.config(['$routeProvider',
                 templateUrl: 'views/templates/manageRepos.html',
                 controller: 'reposController'
             }).
+            when('/manage-tags', {
+                templateUrl: 'views/templates/manageTags.html',
+                controller: 'tagController'
+            }).
             otherwise({
                 redirectTo: '/main'
             });

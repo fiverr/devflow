@@ -12,7 +12,8 @@ var requestSchema = new mongoose.Schema({
     taken_date: Date,
     reviewed_date: Date,
     rejected: Boolean,
-    rejection_reasons: [String]
+    rejection_reasons: [String],
+    tag: { name: String, owner: String }
 });
 
 requestSchema.methods.take = function(user) {
