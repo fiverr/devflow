@@ -19,7 +19,7 @@
         </div>
         <div class="single-line">
             <label>Tag:</label>
-            <select ng-model="request.tag" ng-options="tag.name for tag in tags"></select>
+            <select ng-model="request.tag" ng-options="tag.name for tag in tags track by tag.name"></select>
         </div>
     </div>
 

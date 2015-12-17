@@ -186,7 +186,8 @@ devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 
                         created_date : null,
                         taken_date : null,
                         reviewed_date : null,
-                        rejected: false });
+                        rejected: false,
+                        tag: null });
         },
 
         complete: function(request, rejected) {
