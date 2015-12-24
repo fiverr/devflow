@@ -1,0 +1,7 @@
+<label ng-if="label">{{label}}</label>
+<input type="text" ng-model="selectedText" ng-change="itemTextChanged()" ng-focus="inputFocus()" ng-blur="inputBlur()">
+<ul ng-show="displayItems.length > 0 && selectedText.length > 0 && inputFocused">
+    <li ng-repeat="item in displayItems" class="no-animate">
+        <a ng-click="selectItem(item)">{{item[displayProperty]}}</a>
+    </li>
+</ul>

@@ -54,6 +54,7 @@
         <script src="scripts/directives/server-env/directive.js"></script>
         <script src="scripts/directives/server/directive.js"></script>
         <script src="scripts/directives/model-manager/directive.js"></script>
+        <script src="scripts/directives/input-dropdown/directive.js"></script>
     </head>
 
     <body ng-controller="mainController">
@@ -77,10 +78,10 @@
                 <a href="#/pullrequests" ng-class="{sel: isSelected('pullrequests')}"><i class="fa fa-github"></i>Pull Requests</a>
                 <a href="#/graylogs" ng-class="{sel: isSelected('graylogs')}"><i class="fa fa-bug"></i>Graylogs</a>
                 <a href="#/" ng-class="{sel: isSelected('fqueues')}"><i class="fa fa-exclamation-circle"></i>F - Queues</a>
-                <div class="manage" ng-if="isManagingUser">
-                    <a href="#/manage-users"><i class="fa fa-users"></i>Manage Users</a>
-                    <a href="#/manage-servers"><i class="fa fa-cubes"></i>Manage Servers</a>
-                    <a href="#/manage-repos"><i class="fa fa-code-fork"></i>Manage Repos</a>
+                <div class="manage">
+                    <a href="#/manage-users" ng-if="isManagingUser"><i class="fa fa-users"></i>Manage Users</a>
+                    <a href="#/manage-servers" ng-if="isManagingUser"><i class="fa fa-cubes"></i>Manage Servers</a>
+                    <a href="#/manage-repos" ng-if="isManagingUser"><i class="fa fa-code-fork"></i>Manage Repos</a>
                     <a href="#/manage-tags"><i class="fa fa-tags"></i>Manage Tags</a>
                 </div>
             </nav>

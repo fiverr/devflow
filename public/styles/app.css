@@ -35,6 +35,8 @@ body {
     padding: 5px 10px; }
     body .btn-standard:hover {
       background: gray; }
+  body .no-animate {
+    transition: none !important; }
   body table {
     border-spacing: 0 7px; }
     body table tbody tr {
@@ -55,6 +57,26 @@ body {
           opacity: 0.2; }
           body table tbody tr td i.fa-times-circle-o:hover {
             opacity: 0.5; }
+  body input-dropdown {
+    float: left;
+    position: relative; }
+    body input-dropdown label {
+      float: left; }
+    body input-dropdown input[type="text"] {
+      width: 120px !important; }
+    body input-dropdown ul {
+      width: 120px !important;
+      border: 1px solid lightgray;
+      border-top: 0;
+      display: inline-block;
+      position: absolute; }
+      body input-dropdown ul li a {
+        display: block;
+        color: black;
+        background: #fff !important;
+        opacity: 1 !important; }
+        body input-dropdown ul li a:hover {
+          background: lightgrey !important; }
   body request {
     background: #fff;
     display: inline-block;
@@ -345,8 +367,7 @@ body {
       margin-top: 10px;
       font-weight: 700; }
     body .popup > div {
-      margin-bottom: 15px;
-      overflow: hidden; }
+      margin-bottom: 20px; }
       body .popup > div p {
         margin: 0; }
       body .popup > div label {
@@ -370,6 +391,10 @@ body {
           body .popup > div > div.single-line label {
             display: inline-block;
             min-width: 35px; }
+          body .popup > div > div.single-line:after {
+            content: " ";
+            display: table;
+            clear: both; }
     body .popup footer {
       color: red; }
     body .popup.popup-edit-request header {

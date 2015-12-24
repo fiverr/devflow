@@ -18,8 +18,7 @@
             <a ng-if="additionalType"><i class="fa fa-times-circle" ng-click="removeAdditionalType()"></i></a>
         </div>
         <div class="single-line">
-            <label>Tag:</label>
-            <select ng-model="request.tag" ng-options="tag.name for tag in tags track by tag.name"></select>
+            <input-dropdown items="tags" selected-item="request.tag" display-property="'name'" label="'Tag:'"></input-dropdown>
         </div>
     </div>
 
