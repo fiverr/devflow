@@ -65,16 +65,18 @@ body {
     body input-dropdown input[type="text"] {
       width: 120px !important; }
     body input-dropdown ul {
-      width: 120px !important;
+      min-width: 120px !important;
       border: 1px solid lightgray;
-      border-top: 0;
       display: inline-block;
-      position: absolute; }
+      position: absolute;
+      top: 24px; }
       body input-dropdown ul li a {
         display: block;
         color: black;
         background: #fff !important;
-        opacity: 1 !important; }
+        opacity: 1 !important;
+        white-space: nowrap;
+        padding: 0 2px; }
         body input-dropdown ul li a:hover {
           background: lightgrey !important; }
   body request {

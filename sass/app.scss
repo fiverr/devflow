@@ -127,11 +127,11 @@ body {
         }
 
         ul {
-            width: 120px !important;
+            min-width: 120px !important;
             border: 1px solid lightgray;
-            border-top: 0;
             display: inline-block;
             position: absolute;
+            top: 24px;
 
             li {
                 a {
@@ -139,6 +139,8 @@ body {
                     color: black;
                     background: $standard_white !important;
                     opacity: 1 !important;
+                    white-space: nowrap;
+                    padding: 0 2px;
 
                     &:hover {
                         background: lightgrey !important;
