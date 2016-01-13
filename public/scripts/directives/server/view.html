@@ -12,13 +12,16 @@
         <a ng-if="isTaken(server) && canJoin(server)" class="hint--bottom" data-hint="Take" ng-click="take(server)"><i class="fa fa-child"></i></a>
         <a ng-if="isTaken(server) && canJoin(server)" class="hint--bottom" data-hint="Queue" ng-click="joinQueue(server)"><i class="fa fa-user-plus"></i></a>
 
-        <a ng-if="isCurrentUser(server)" ng-click="release(server)" class="hint--bottom" data-hint="Release"><i class="fa fa-times-circle-o"></i></a>
+        <a ng-if="isCurrentUser(server) && !isOnDemand(server)" ng-click="release(server)" class="hint--bottom" data-hint="Release"><i class="fa fa-times-circle-o"></i></a>
         <a ng-if="isCurrentUser(server)" ng-click="showExtendForm(server)" class="hint--bottom" data-hint="Extend"><i class="fa fa-clock-o"></i></a>
-        
+
+        <a ng-if="isOnDemand(server)" ng-click="navigateToDeploy(server)" class="hint--bottom" data-hint="Deploy Job"><i class="fa fa-arrow-circle-o-up"></i></a>
+        <a ng-if="isOnDemand(server)" ng-click="kill(server)" class="hint--bottom" data-hint="Kill"><i class="fa fa-bomb"></i></a>
+
         <a ng-if="isUserInQueue(server)" ng-click="unqueue(server)" class="hint--bottom" data-hint="Unqueue"><i class="fa fa-user-times"></i></a>
 
-        <a ng-if="canTakeUp(server)" ng-click="changeDownState(server, false)" class="hint--bottom" data-hint="Up"><i class="fa fa-arrow-circle-o-up"></i></a>
-        <a ng-if="canTakeDown(server)" ng-click="changeDownState(server, true)" class="hint--bottom" data-hint="Down"><i class="fa fa-arrow-circle-o-down"></i></a>
+        <a ng-if="canTakeUp(server) && !isOnDemand(server)" ng-click="changeDownState(server, false)" class="hint--bottom" data-hint="Up"><i class="fa fa-arrow-circle-o-up"></i></a>
+        <a ng-if="canTakeDown(server) && !isOnDemand(server)" ng-click="changeDownState(server, true)" class="hint--bottom" data-hint="Down"><i class="fa fa-arrow-circle-o-down"></i></a>
     </aside>
 
     <ul>
@@ -27,5 +30,6 @@
         </li>
     </ul>
 
-    <h2 ng-class="getState(server)">{{server.name}}</h2>
+    <a><h2 ng-class="getState(server)" ng-click="navigateToServer(server)" ng-if="isOnDemand(server)">{{server.server_url.replace("http://","")}}</h2></a>
+    <h2 ng-class="getState(server)" ng-if="!isOnDemand(server)">{{server.name}}</h2>
 </div>

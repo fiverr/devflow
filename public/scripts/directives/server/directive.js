@@ -61,11 +61,27 @@ devflowApp.directive('server', ['userService', 'serverService', 'ngDialog', func
             $scope.isCurrentUser = function(server) {
                 return (serverService.isTakenByUser(server, currentUser));
             }
+            $scope.isOnDemand = function(server) {
+                return server.on_demand;
+            }
 
             $scope.take = function(server) {
                 serverService.take(server, currentUser);
                 window.open(server.url, '_blank');
             }
+
+            $scope.navigateToServer = function(server) {
+                window.open(server.server_url, '_blank');
+            }
+
+            $scope.navigateToDeploy = function(server) {
+                window.open(server.url, '_blank');
+            }
+
+            $scope.kill = function(server) {
+                serverService.kill(server, currentUser, true);
+                window.location.reload();
+            };
 
             $scope.release = function(server) {
                 serverService.release(server);
@@ -73,7 +89,7 @@ devflowApp.directive('server', ['userService', 'serverService', 'ngDialog', func
 
             $scope.joinQueue = function(server) {
                 serverService.joinQueue(server, currentUser, false);
-            }    
+            }
 
             $scope.isUserInQueue = function(server) {
                 return (serverService.isUserInQueue(server.queue, currentUser));

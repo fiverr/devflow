@@ -16,14 +16,21 @@ module.exports = {
                 for (var serverIndex = 0; serverIndex < servers.length; serverIndex++) {
                     var server = servers[serverIndex].server;
 
-                    serverController.release(server.toObject());
+                    if (server.on_demand) {
+                        serverController.kill(server);
+                        sockets.emit('serverKilled', servers[serverIndex].env);
+                        console.log(server.name + ' Killed!')
+                    }
+                    else {
+                        serverController.release(server.toObject());
 
-                    // update current object for socket only
-                    server.release(servers[serverIndex].env);
-                    server.setReleaseDate(null);
+                        // update current object for socket only
+                        server.release(servers[serverIndex].env);
+                        server.setReleaseDate(null);
 
-                    sockets.emit('serverReleased', server);
-                    console.log(server.name + ' Released')
+                        sockets.emit('serverReleased', server);
+                        console.log(server.name + ' Released')
+                    }
                 }
 
                 console.log('Release Job Completed');

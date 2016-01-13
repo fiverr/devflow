@@ -433,12 +433,30 @@ body {
         }
     }
 
-    server {
+    server,
+    .new{
         display: inline-block;
         background: $standard_white;
         font-weight: 700;
         width: 200px;
         height: 200px;
+
+        &.new {
+            a {
+                display: inline-block;
+                color: lightgray;
+                font-size: 50px;
+                padding: 70px 0 0 73px;
+            }
+        }
+
+        &.blur {
+            opacity: 0.4;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
 
         > div {
             height: 100%;
@@ -705,6 +723,15 @@ body {
                         opacity: 1;
                         cursor: default;
                     }
+                }
+            }
+
+            .custom-gemset-box {
+                margin: 20px 0;
+
+                input {
+                    width: 25px;
+                    display: inline-block;
                 }
             }
         }

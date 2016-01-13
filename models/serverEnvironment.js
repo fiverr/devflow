@@ -30,14 +30,17 @@ var serverSchema = new mongoose.Schema({
     taken_since : Date,
     is_down: Boolean,
     release_date: Date,
-    url: String
+    url: String,
+    server_url: String,
+    on_demand: Boolean,
+    custom_gemset: Boolean
 });
 
 serverSchema.methods.take = function(user, releaseDate) {
     this.user = user;
     this.taken_since = new Date();
     this.release_date = new Date(releaseDate);
-    
+
     // remove taking user if un queue
     removeUserFromQueue(this.queue, user);
 }
@@ -82,7 +85,8 @@ serverSchema.methods.setDownState = function(isDown) {
 var environmentSchema = new mongoose.Schema({
     name : String,
     servers: [serverSchema],
-    queue: [{ email : String, name : String, image : String }]
+    queue: [{ email : String, name : String, image : String }],
+    on_demand: Boolean
 });
 
 environmentSchema.methods.take = function(serverName, user, releaseDate) {
@@ -122,6 +126,31 @@ environmentSchema.methods.unqueueEnv = function(user) {
 
 environmentSchema.methods.getServerData = function(serverName) {
     return (findServerbyName(this, serverName));
+}
+
+// On-demand
+environmentSchema.methods.create = function(serverName, user, releaseDate, jobUrl, serverUrl, custom_gemset) {
+    var srv = { name: serverName,
+        user: user,
+        environment: this.name,
+        queue: [],
+        taken_since: new Date(),
+        is_down: false,
+        release_date: releaseDate,
+        url: "http://" + jobUrl,
+        server_url: "http://" + serverUrl,
+        on_demand: true,
+        custom_gemset: custom_gemset};
+
+    this.servers.push(srv);
+}
+
+environmentSchema.methods.kill = function(serverName) {
+    for (var i = 0; i < this.servers.length; i++) {
+        if (this.servers[i].name == serverName) {
+          this.servers.splice(i, 1);
+        }
+    }
 }
 
 module.exports = mongoose.model('ServerEnvironment', environmentSchema, 'ServerEnvironments');
