@@ -137,8 +137,8 @@ environmentSchema.methods.create = function(serverName, user, releaseDate, jobUr
         taken_since: new Date(),
         is_down: false,
         release_date: releaseDate,
-        url: "http://" + jobUrl,
-        server_url: "http://" + serverUrl,
+        url: jobUrl,
+        server_url: serverUrl,
         on_demand: true,
         custom_gemset: custom_gemset};
 
