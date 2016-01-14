@@ -1,6 +1,9 @@
 var ServerEnv = require('../models/serverEnvironment'),
     mailer = require('../services/mailer'),
-    hipchat = require('../services/hipchat');
+    hipchat = require('../services/hipchat'),
+    request = require('request');
+
+    request.debug = true;
 
 function saveServerEnv(serverEnv) {
     serverEnv.save(function (err) {
@@ -63,7 +66,7 @@ module.exports = {
                             for (var serverIndex = 0; serverIndex < servers.length; serverIndex++) {
 
                                 // if user is in queue or on one of the servers - remove all servers
-                                if (servers[serverIndex].user.email == req.user.email || 
+                                if (servers[serverIndex].user.email == req.user.email ||
                                     checkIfInQueue(req.user, servers[serverIndex].queue)) {
                                     serverEnvs[envIndex].servers = [];
                                     break;
@@ -135,7 +138,7 @@ module.exports = {
 
     take: function (data, callback) {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
 
             env.take(data.name, data.user, data.release_date);
             saveServerEnv(env);
@@ -147,7 +150,7 @@ module.exports = {
 
     extend : function(data, callback) {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
 
             env.setReleaseDate(data.name, new Date(data.release_date));
             saveServerEnv(env);
@@ -158,7 +161,7 @@ module.exports = {
 
     release: function (data, callback) {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
 
             env.release(data.name);
             saveServerEnv(env);
@@ -166,9 +169,9 @@ module.exports = {
             hipchat.sendMessage('server', "Devflow", data.name + " released", "green");
 
             if (data.user) {
-                mailer.sendMail(data.user.email, 
+                mailer.sendMail(data.user.email,
                             data.name + ' is finally free for you',
-                            'Hi <b>' + data.user.name + '</b>, <br/><br/><br/>' + 
+                            'Hi <b>' + data.user.name + '</b>, <br/><br/><br/>' +
                             'Finally, <br/> <br/>' +
                             '<i>' + data.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
                             'The server has been marked as taken by you automatically :)');
@@ -182,7 +185,7 @@ module.exports = {
 
     queue: function (data, callback) {
         ServerEnv.findOne({name: data.server.environment}, function(err, env) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
 
             env.queueServer(data.server.name, data.user);
             saveServerEnv(env);
@@ -195,7 +198,7 @@ module.exports = {
 
     unqueue: function(data, callback) {
         ServerEnv.findOne({name: data.server.environment}, function(err, env) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
 
             env.unqueueServer(data.server.name, data.user);
             saveServerEnv(env);
@@ -208,7 +211,7 @@ module.exports = {
 
     queueEnv: function(data, callback) {
         ServerEnv.findOne({_id: data.env._id}, function(err, env) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
 
             env.queueEnv(data.user);
             saveServerEnv(env);
@@ -221,7 +224,7 @@ module.exports = {
 
     unqueueEnv: function(data, callback) {
         ServerEnv.findOne({_id: data.env._id}, function(err, env) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
 
             env.unqueueEnv(data.user);
             saveServerEnv(env);
@@ -241,6 +244,43 @@ module.exports = {
 
             var strState = data.is_down ? 'DOWN' : 'UP';
             hipchat.sendMessage('server', 'Devflow', data.name + ' has been marked as ' + strState, 'red');
+
+            if (callback) { callback(env); }
+        });
+    },
+
+    // On-demand
+    create: function (data, callback) {
+        ServerEnv.findOne({name: data.environment}, function(err, env) {
+            if (err) { throw err; }
+
+            var options = {
+                uri: config.pod.url,
+                method: 'POST',
+                json: { "branch_name": data.branch_name }
+            };
+
+            request(options, function (error, response, body) {
+                if (error) { throw error; }
+                env.create(body.instance_id, data.user, data.release_date, body.deploy_url, body.server_url, data.custom_gemset);
+                saveServerEnv(env);
+
+                if (callback) { callback(env); }
+            });
+        });
+    },
+    kill: function (data, callback) {
+        ServerEnv.findOne({name: data.environment}, function(err, env) {
+            if (err) { throw err; }
+
+            request.del(config.pod.url + "/" + data.name, function (error, response, body) {
+                if (error) { throw error; }
+
+                console.log(body);
+            });
+
+            env.kill(data.name);
+            saveServerEnv(env);
 
             if (callback) { callback(env); }
         });

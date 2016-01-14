@@ -22,7 +22,7 @@ module.exports = {
 
             // check if user found
             if (user) {
-                if (err) { throw err; } 
+                if (err) { throw err; }
 
                 if (!user.associated) {
                     user.id = profile.id;
@@ -56,7 +56,7 @@ module.exports = {
 
     deserializeUser: function(id, done)  {
         User.findOne({_id: id}, function(err, user) {
-            if (err) { throw err; } 
+            if (err) { throw err; }
             done(null, user);
         });
     },
