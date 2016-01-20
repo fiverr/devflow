@@ -51,7 +51,7 @@ An application allowing to monitor the state of servers and requests of differen
   
   Deploy latest version and Restart (on Linux): 
 
-    Enter your folder and run: ./deploy
+    Enter your folder and run: ./deploy.sh
 
   Log and Errors:
 
