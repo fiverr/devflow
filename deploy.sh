@@ -1,5 +1,6 @@
+#!/bin/bash
 
-PROCESS_ID=`pwdx $(pgrep npm) | grep devflow | cut -d ":" -f 1`
+PROCESS_ID=`pwdx $(pgrep node) | grep devflow | cut -d ":" -f 1`
 if [ -n "$PROCESS_ID" ]; then
   kill $PROCESS_ID || true
 fi
