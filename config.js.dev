@@ -4,12 +4,12 @@ module.exports = function(env) {
 
         sessionSecret: 'yourSecret',
         mongo: 'mongodb://localhost:27017/devflow',
-        domain: 'yourdomain',
-        home_url: 'yoururl',
+        domain: '{{domainName}}',
+        home_url: 'devflow.{{domainName}}.com',
         google: {
-            clientId: '',
-            clientSecret: '',
-            callbackURL: ''
+            clientId: '{{googleClientID}}',
+            clientSecret: '{{googleClientSecret}}',
+            callbackURL: '{{googleCallbackURL}}'
         },
         mail: {
             isEnabled: false
@@ -23,11 +23,12 @@ module.exports = function(env) {
             rooms: {}
         },
         github: {
-            organization: 'yourorg',
+            organization: '{{domainName}}',
             accessToken: ''
         },
         requests: {
             notifyRepos: false,
+            notifyTags: false
         },
         jobs: {
             serverRelease: {
@@ -43,7 +44,7 @@ module.exports = function(env) {
                     types: ['BE', 'Team1', 'Team2', 'Team3'],
                     typeTitle: 'Team',
                     linkTitle: 'Link',
-                    linkRegex: '^http://graylog.yourdomain.com/',
+                    linkRegex: '^http://graylog.{{domainName}}.com/',
                     useSmallLabels: true,
                     constantEnv: 'Graylog Link',
                     rejectable: false,
@@ -58,7 +59,14 @@ module.exports = function(env) {
                     hasNumber: true,
                     rejectable: true,
                     showTeam: true,
-                    rejectionReasons: {}
+                    rejectionReasons: {
+                        performance: 'Performance issues',
+                        missing: 'Missing implementation',
+                        structure: 'Code structure',
+                        style: 'Code styling - only major styling issues',
+                        verify: 'Needs verification with 3rd party',
+                        other: 'Other'
+                    }
                 }
             },
 
@@ -76,16 +84,26 @@ module.exports = function(env) {
         development: {
             port: 3000,
             google: {
-                clientId: '',
-                clientSecret: '',
-                callbackURL: ''
+                clientId: '{{googleClientID}}',
+                clientSecret: '{{googleClientSecret}}',
+                callbackURL: '{{googleCallbackURL}}'
             }
         },
 
         production: {
             port: 3005,
             hipchat: {
-                isEnabled: true,
+                isEnabled: false,
+                authToken: '',
+                rooms: {
+                    pullrequest: 1,
+                    graylog: 2,
+                    server: 3
+                }
+            },
+            slack: {
+                isEnabled: false,
+                icon: '',
                 authToken: '',
                 rooms: {
                     pullrequest: 1,
@@ -95,6 +113,7 @@ module.exports = function(env) {
             },
             requests: {
                 notifyRepos: true,
+                notifyTags: true
             },
             mail: {
                 isEnabled: false,

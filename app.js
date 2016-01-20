@@ -68,6 +68,6 @@ d.on('error', function(err) {
 });
 
 // start server
-nodeServer.listen(port, function(){
+nodeServer.listen(port, function() {
     console.log('Devflow server listening on port ' + port);
 });

@@ -57,6 +57,8 @@ serverSchema.methods.release = function(env) {
         if (this.queue.length > 0) {
             nextUser = this.queue[0];
             this.queue.splice(0, 1);
+        } else if (env.queue.length > 0) {
+           nextUser = env.queue[0]; // removal from queue in next event
         }
 
         this.user = nextUser;
