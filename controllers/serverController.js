@@ -1,4 +1,5 @@
 var ServerEnv = require('../models/serverEnvironment'),
+    notifier  = require('../services/notifier')
     mailer = require('../services/mailer'),
     request = require('request');
 
