@@ -142,7 +142,8 @@ body {
                     white-space: nowrap;
                     padding: 0 2px;
 
-                    &:hover {
+                    &:hover, 
+                    &.focused {
                         background: lightgrey !important;
                     }
                 }
