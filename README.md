@@ -2,13 +2,13 @@
 
 An application allowing to monitor the state of servers and requests of different kinds (pullrequests, graylogs).
 
-<h2>Prerequisites:</h2>
+##Prerequisites:
   
   * NodeJS and npm
   * MongoDB
   * Google Account and App with Google+ API enabled 
 
-<h2>Setup and Local Use:</h2>
+##Setup and Local Use:
   
   * Create a google app with Google+ API enabled in the google developers console, and prepare the: Client ID, Secret and Callback Url
   * Run: "npm install"
@@ -20,14 +20,14 @@ An application allowing to monitor the state of servers and requests of differen
   ( Please Run "npm install" again whenever changing node packages,
     In order to debug it's possible to run "node debug app.js" - node's built-in debugger )
 
-<h2>Optional Services Integration:</h2>
+##Optional Services Integration:
   
   * GitHub
   * HipChat
   * Slack
   * Email
 
-<h2>Configuration:</h2>
+##Configuration:
   
   config.js
 
@@ -36,13 +36,13 @@ An application allowing to monitor the state of servers and requests of differen
 
   See examples in the config.js.dev in the project
 
-<h2>Web Management Console:</h2>
+##Web Management Console:
 
   * User Management. (admin role only)
-  * Server Management. (admin role only, no enviroment additions/deletions available)
+  * Server Management. (admin role only, no environment additions/deletions available)
   * Tags Management
 
-<h2>Deploy and Production Settings:</h2>
+##Deploy and Production Settings:
 
   Configuration setup:
 
