@@ -37,10 +37,10 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
         },
 
         userData: function(user) {
-           return ({ name: user.name, image: user.image, email: user.email }); 
+           return ({ name: user.name, image: user.image, email: user.email });
         },
 
-        initSockets: function() { 
+        initSockets: function() {
             var that = this;
 
             socket.on('serverTaken', function(data) {
@@ -91,14 +91,25 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
             socket.on('envUnqueued', function(data) {
                 that.update(that.findEnvByName(data.env.name), data.env);
             });
+
+            // On-demand
+            socket.on('serverCreated', function(data) {
+                var env = that.findEnvByName(data.environment);
+                env.servers.push(data);
+            });
+
+            socket.on('serverKilled', function(data) {
+                var env = that.findEnvByName(data.environment);
+                env.servers.splice(env.servers.indexOf(data), 1);
+            });
         }
     }
-     
+
     methods.initSockets();
 
     return {
         getServers: function(freeOnly, onSuccess, onFailure) {
-            var that = this, 
+            var that = this,
                 params = {};
 
             if (freeOnly) {
@@ -121,7 +132,7 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
         },
 
         newServer: function(envName) {
-            return ({ name: '', environment: envName, url: '', user: null, queue: [], 
+            return ({ name: '', environment: envName, url: '', user: null, queue: [],
                       taken_since: null, is_down: false, release_date: null });
         },
 
@@ -150,6 +161,28 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
 
             // remove taking user if in queue
             this.removeUserFromQueue(server.queue, server.user);
+        },
+
+        create: function(envName, branchName, user, customGems, callback) {
+            server = {};
+            server.user = methods.userData(user);
+            server.taken_since = new Date();
+            server.release_date = new Date();
+            server.environment = envName;
+            server.branch_name = branchName;
+            server.custom_gemset = customGems
+
+            this.setReleaseDate(server, 1);
+            socket.emit('createServer', server, function(data) {
+                var env = methods.findEnvByName(data.environment);
+                env.servers.push(data);
+            });
+        },
+
+        kill: function(server) {
+            var env = methods.findEnvByName(server.environment);
+            env.servers.splice(env.servers.indexOf(server), 1);
+            socket.emit('killServer', server);
         },
 
         extend: function(server, hours) {
@@ -203,7 +236,7 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
             }
         },
 
-        unqueue: function(server, user, isEnv) {  
+        unqueue: function(server, user, isEnv) {
             user = methods.userData(user);
 
             this.removeUserFromQueue(server.queue, user);
@@ -234,14 +267,14 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
         },
 
         allowedToTakeDown: function(server, user) {
-            return (user.role == 'admin' || user.role == 'devops');
+            return ((user.role == 'admin' || user.role == 'devops') && !server.on_demand);
         },
 
         canJoin: function(server, user, isEnv) {
             var that = this,
                 env = isEnv ? server : methods.findEnvByName(server.environment);
 
-            if (that.isDown(server) || that.isUserInQueue(env.queue, user)) {
+            if (that.isDown(server) || that.isUserInQueue(env.queue, user) || (server.on_demand && !isEnv)) {
                 return (false);
             }
 

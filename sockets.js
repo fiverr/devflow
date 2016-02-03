@@ -55,6 +55,10 @@ module.exports = function(nodeServer) {
         socket.setSocketEvent('releaseServer', server.release, 'serverReleased');
         socket.setSocketEvent('changeServerDownState', server.downStateChanged, 'serverDownStateChanged');
         socket.setSocketEvent('extendServer', server.extend, 'serverExtended');
+
+        // On-demand Servers
+        socket.setSocketEvent('createServer', server.create, 'serverCreated', true);
+        socket.setSocketEvent('killServer', server.kill, 'serverKilled', true);
     });
 
     return (socketConn);

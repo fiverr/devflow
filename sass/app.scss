@@ -142,7 +142,7 @@ body {
                     white-space: nowrap;
                     padding: 0 2px;
 
-                    &:hover, 
+                    &:hover,
                     &.focused {
                         background: lightgrey !important;
                     }
@@ -434,12 +434,27 @@ body {
         }
     }
 
-    server {
+    server,
+    .server {
         display: inline-block;
         background: $standard_white;
         font-weight: 700;
         width: 200px;
         height: 200px;
+
+        &.new {
+            a {
+                opacity: 0.4;
+                display: inline-block;
+                color: lightgray;
+                font-size: 50px;
+                padding: 70px 0 0 77px;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
 
         > div {
             height: 100%;
@@ -650,7 +665,7 @@ body {
                 &.single-line {
                     margin: 10px 0 10px 60px;
                     text-align: left;
-                    
+
                     label {
                         display: inline-block;
                         min-width: 35px;
@@ -706,6 +721,15 @@ body {
                         opacity: 1;
                         cursor: default;
                     }
+                }
+            }
+
+            .custom-gemset-box {
+                margin: 20px 0;
+
+                input {
+                    width: 25px;
+                    display: inline-block;
                 }
             }
         }
@@ -819,7 +843,7 @@ body {
                 border-top: 1px solid black;
 
                 .fa-users {
-                    padding-right: 15px;    
+                    padding-right: 15px;
                 }
 
                 .fa-code-fork {

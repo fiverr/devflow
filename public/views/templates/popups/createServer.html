@@ -1,0 +1,18 @@
+<section class="popup popup-edit-request">
+    <header>Create a new server</header>
+    <div>
+        <div>
+            <label>Branch:</label>
+            <input autofocus type="text" ng-model="env.data.branchName" ng-class="{invalid: invalidFields.branchName}" ng-change="fieldChanged('branchName')"/>
+        </div>
+
+        <div class="custom-gemset-box">
+            <label class="custom-gemset-box">
+                <input type="checkbox" ng-model="env.data.customGems" ng-change="fieldChanged('customGems')" />
+                Use Custom Gemset
+            </label>
+        </div>
+    </div>
+
+    <a class="btn-standard" ng-click="saveServer(env)">Save</a>
+</section>

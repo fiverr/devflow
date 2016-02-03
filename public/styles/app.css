@@ -252,71 +252,79 @@ body {
       body review > div img {
         float: left;
         margin: 11px; }
-  body server {
+  body server, body .server {
     display: inline-block;
     background: #fff;
     font-weight: 700;
     width: 200px;
     height: 200px; }
-    body server > div {
+    body server.new a, body .server.new a {
+      opacity: 0.4;
+      display: inline-block;
+      color: lightgray;
+      font-size: 50px;
+      padding: 70px 0 0 77px; }
+      body server.new a:hover, body .server.new a:hover {
+        opacity: 1; }
+    body server > div, body .server > div {
       height: 100%;
       position: relative;
       text-align: center; }
-      body server > div.faded {
+      body server > div.faded, body .server > div.faded {
         opacity: 0.2; }
-      body server > div h2 {
+      body server > div h2, body .server > div h2 {
         position: absolute;
         bottom: 0;
         width: 100%;
         line-height: 35px;
         background: darkgreen;
         color: #fff; }
-        body server > div h2.taken {
+        body server > div h2.taken, body .server > div h2.taken {
           background: darkred; }
-        body server > div h2.down {
+        body server > div h2.down, body .server > div h2.down {
           background: #272a33; }
-      body server > div > .btn-standard {
+      body server > div > .btn-standard, body .server > div > .btn-standard {
         display: inline-block;
         margin-top: 65px;
         background: darkorange;
         opacity: 0.8;
         padding: 8px 35px; }
-        body server > div > .btn-standard:hover {
+        body server > div > .btn-standard:hover, body .server > div > .btn-standard:hover {
           background: darkorange;
           opacity: 1; }
-      body server > div > div {
+      body server > div > div, body .server > div > div {
         padding-top: 32px; }
-        body server > div > div .user-image {
+        body server > div > div .user-image, body .server > div > div .user-image {
           display: block;
           margin: auto;
           width: 60px;
           height: 60px;
           border-radius: 30px;
           margin-bottom: 5px; }
-      body server > div aside {
+      body server > div aside, body .server > div aside {
         padding-top: 5px; }
-        body server > div aside a {
+        body server > div aside a, body .server > div aside a {
           padding-top: 5px;
           margin-right: 2px;
           font-size: 21px;
           opacity: 0.3; }
-          body server > div aside a:hover {
+          body server > div aside a:hover, body .server > div aside a:hover {
             opacity: 1; }
-          body server > div aside a.hint--bottom:before, body server > div aside a.hint--bottom:after {
+          body server > div aside a.hint--bottom:before, body server > div aside a.hint--bottom:after, body .server > div aside a.hint--bottom:before, body .server > div aside a.hint--bottom:after {
             left: 15%; }
-          body server > div aside a .fa-user-plus, body server > div aside a .fa-user-times {
+          body server > div aside a .fa-user-plus, body server > div aside a .fa-user-times, body .server > div aside a .fa-user-plus, body .server > div aside a .fa-user-times {
             font-size: 17px; }
-      body server > div ul {
+      body server > div ul, body .server > div ul {
         position: absolute;
         left: 7px;
         top: 10px; }
-        body server > div ul li {
+        body server > div ul li, body .server > div ul li {
           margin-bottom: 2px; }
-          body server > div ul li .user-image {
+          body server > div ul li .user-image, body .server > div ul li .user-image {
             width: 30px;
             height: 30px;
             border-radius: 15px; }
-      body server > div > span {
+      body server > div > span, body .server > div > span {
         float: right;
         padding: 5px;
         font-size: 14px;
@@ -420,6 +428,11 @@ body {
       body .popup.popup-edit-request > div a.used {
         opacity: 1;
         cursor: default; }
+    body .popup.popup-edit-request .custom-gemset-box {
+      margin: 20px 0; }
+      body .popup.popup-edit-request .custom-gemset-box input {
+        width: 25px;
+        display: inline-block; }
     body .popup.popup-server-extend header {
       font-size: 60px; }
     body .popup.popup-server-extend input {

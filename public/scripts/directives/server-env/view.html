@@ -1,7 +1,7 @@
-<div ng-if="env.servers.length > 0"> 
+<div ng-if="env.servers.length > 0 || env.on_demand">
     <header>{{env.name}}</header>
 
-    <div>
+    <div ng-if="!env.on_demand">
         <h3 ng-if="env.queue.length">Queue:</h3>
         <ul>
             <li ng-repeat="user in env.queue">
@@ -11,10 +11,13 @@
         <a ng-if="canJoinEnvQueue(env)" class="hint--right" data-hint="Queue" ng-click="joinQueue(env)"><i class="fa fa-user-plus"></i></a>
         <a ng-if="isUserInQueue(env)" class="hint--right" data-hint="Unqueue" ng-click="unqueue(env)"><i class="fa fa-user-times"></i></a>
     </div>
-    
+
     <ul>
         <li ng-repeat="server in env.servers | filter: query">
             <server server-object="server" current-user="currentUser"></server>
+        </li>
+        <li ng-if="canAddServer(env)" class="server new">
+            <a ng-click="openCreate(env)"><i class="fa fa-plus-circle"></i></a>
         </li>
     <ul>
 </div>
