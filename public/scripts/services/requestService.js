@@ -89,9 +89,11 @@ devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 
         },
 
         fetchRepos: function() {
-            repoService.getRepos(function(data) {
-                repos = data;
-            });
+            if (!repos.length) {
+                repoService.getRepos(function(data) {
+                    repos = data;
+                });
+            }
         }
     };
 

@@ -87,6 +87,8 @@ module.exports = {
             User.find({}, function(err, users) {
                 res.json(users);
             });
+        } else {
+            res.json([]);
         }
     },
 
@@ -141,6 +143,8 @@ module.exports = {
 
                 res.json({status: 'success'});
             });
+        } else {
+            res.json({status: 'failure'});
         }
     },
 

@@ -177,7 +177,7 @@ module.exports = {
                 notifier.sendMessage('server', server.user.name, getNotifierMsg(server, 'took by queue'), 'red');
             }
 
-            if (callback) { callback(env); }
+            if (callback) { callback({env: env, server: server}); }
         });
     },
 

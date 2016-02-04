@@ -30,6 +30,8 @@ module.exports = function(model, pAdminRequired, pModelName) {
                 Model.find({}, function(err, models) {
                     res.json(models);
                 });
+            } else {
+                res.json([]);
             }
         },
         saveAll: function(req, res) {
@@ -78,6 +80,8 @@ module.exports = function(model, pAdminRequired, pModelName) {
 
                     res.json({status: 'success'});
                 });
+            } else {
+                res.json({status: 'failure'});
             }
         }
     }

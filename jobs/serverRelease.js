@@ -21,14 +21,17 @@ module.exports = {
                         sockets.emit('serverKilled', servers[serverIndex].env);
                         console.log(server.name + ' Killed!');
                     } else {
-                        serverController.release(server.toObject());
+                        var envQueueCount = servers[serverIndex].env.queue.length;
 
-                        // update current object for socket only
-                        server.release(servers[serverIndex].env);
-                        server.setReleaseDate(null);
+                        serverController.release(server.toObject(), function(data) {
+                            sockets.emit('serverReleased', data.server);
+                            console.log(data.server.name + ' Released');
 
-                        sockets.emit('serverReleased', server);
-                        console.log(server.name + ' Released')
+                            // unqueued from env
+                            if (data.env.queue.length < envQueueCount) {
+                                sockets.emit('envUnqueued', { env: data.env });
+                            }
+                        });
                     }
                 }
 
