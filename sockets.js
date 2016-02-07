@@ -6,9 +6,6 @@ module.exports = function(nodeServer) {
 
     var socketConn = io.listen(nodeServer);
 
-    // temp workaroung disabling websockets and enabling xhr polling only - nginx problems
-    socketConn.set('transports', [ 'htmlfile', 'xhr-polling', 'jsonp-polling' ]);
-
     // Socket endpoints
     socketConn.sockets.on('connection', function (socket) {
 
