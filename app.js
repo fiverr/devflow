@@ -19,6 +19,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
+app.use(express.compress());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
@@ -32,6 +33,9 @@ app.use(app.router);
 
 // connect to db
 mongoose.connect(config.mongo);
+
+// concat and uglify
+require('./compress').compress(env);
 
 // setup sass middleware
 app.use(
