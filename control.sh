@@ -29,8 +29,6 @@ CURR_DIR=`pwd`
 
 action=$1
 export NODE_ENV=$2
-export SHARED_APP_DIR="../../shared/"
-export APP_CWD="/home/admin/apps/fiverr_devflow/current"
 
 case "$action" in
 	stop)
