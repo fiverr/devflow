@@ -20,8 +20,6 @@ startAppCorrectly ()
     	then
     		echo "${APP} is down , starting..."
         	npm start
-    	else
-    		npm run-script deploy
 	fi
 }
 
