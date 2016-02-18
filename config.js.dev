@@ -36,6 +36,10 @@ module.exports = function(env) {
             },
             clearReviewers: {
                 announcementRoom: 'pullrequest'
+            },
+            timeNearlyUpReminder: {
+                interval: 1000 * 60 * 5,
+                nearlyDoneThreshold: 1000 * 60 * 10
             }
         },
         client: {
