@@ -1,3 +1,4 @@
+#!/bin/bash
 start ()
 {
 	startAppCorrectly
@@ -5,25 +6,27 @@ start ()
 
 stop ()
 {
-  PROCESS_ID=`pwdx $(pgrep node) | grep devflow | cut -d ":" -f 1`
-  if [ -n "$PROCESS_ID" ]; then
-    kill $PROCESS_ID || true
-  fi
+	PROCESS_ID=`pgrep node`
+	if [ -n "$PROCESS_ID" ]; then
+          kill $PROCESS_ID || true
+  	fi
 }
 
 restart ()
 {
+	PROCESS_ID=`pgrep node`
+	if [ -n "$PROCESS_ID" ]; then
+	  kill $PROCESS_ID || true
+	fi
+        sleep 10
 	startAppCorrectly
 }
 
 startAppCorrectly ()
 {
-	npm install
-    	if [ $? -ne "0" ]
-    	then
-    		echo "${APP} is down , starting..."
-                NODE_ENV=production nohup npm start &
-	fi
+  	npm install
+  	sleep 5
+        NODE_ENV=production nohup npm start &
 }
 
 # MAIN
