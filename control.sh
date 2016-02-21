@@ -5,7 +5,10 @@ start ()
 
 stop ()
 {
-	npm stop
+  PROCESS_ID=`pwdx $(pgrep node) | grep devflow | cut -d ":" -f 1`
+  if [ -n "$PROCESS_ID" ]; then
+    kill $PROCESS_ID || true
+  fi
 }
 
 restart ()
@@ -19,7 +22,7 @@ startAppCorrectly ()
     	if [ $? -ne "0" ]
     	then
     		echo "${APP} is down , starting..."
-        	npm start
+                NODE_ENV=production nohup npm start &
 	fi
 }
 
@@ -28,7 +31,6 @@ startAppCorrectly ()
 CURR_DIR=`pwd`
 
 action=$1
-export NODE_ENV=$2
 
 case "$action" in
 	stop)
