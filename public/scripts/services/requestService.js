@@ -131,7 +131,7 @@ devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 
         },
 
         allowedToReview: function(user) {
-            return (user.role == 'reviewer' || user.role == 'admin');
+            return (user.role == 'reviewer' || user.role == 'admin' || user.role == 'devops');
         },
 
         take: function(request, user) {
