@@ -23,10 +23,10 @@ restart ()
 
 startAppCorrectly ()
 {
-  	npm install
-  	sleep 5
-        NODE_ENV=production 
-        npm start
+       npm install
+       sleep 5
+       NODE_ENV=production
+       nohup npm start > /dev/null 2>&1 &
 }
 
 # MAIN
