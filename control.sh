@@ -18,7 +18,6 @@ restart ()
 	if [ -n "$PROCESS_ID" ]; then
 	  kill $PROCESS_ID || true
 	fi
-        sleep 10
 	startAppCorrectly
 }
 
