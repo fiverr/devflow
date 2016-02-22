@@ -26,7 +26,8 @@ startAppCorrectly ()
 {
   	npm install
   	sleep 5
-        NODE_ENV=production nohup npm start &
+        NODE_ENV=production 
+        npm start
 }
 
 # MAIN
