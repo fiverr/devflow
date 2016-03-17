@@ -24,12 +24,13 @@ module.exports = function(app) {
     app.get('/users/currentUser', user.getCurrentUser);
     app.post('/users/currentUser', user.updateCurrentUser);
 
+    app.get('/server/rest/all', server.rest.all);
     app.post('/server/rest/take', server.rest.take);
     app.post('/server/rest/release', server.rest.release);
     app.post('/server/rest/queue', server.rest.queue);
     app.post('/server/rest/unqueue', server.rest.unqueue);
     app.post('/server/rest/extend', server.rest.extend);
-    
+
     app.get('/repos', repo.getAll);
     app.post('/repos', repo.saveAll);
 

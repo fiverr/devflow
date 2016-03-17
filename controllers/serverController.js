@@ -31,6 +31,17 @@ function checkIfInQueue(user, queue) {
     return (false);
 }
 
+function findServerByName(serverName, servers){
+
+    for (var i = 0; i < servers.length; i++) {
+        if (servers[i].name.toLowerCase() == serverName.toLowerCase()) {
+            return (servers[i]);
+        }
+    }
+
+    return (null);
+}
+
 module.exports = {
 
     all: function (req, res) {
@@ -286,15 +297,42 @@ module.exports = {
     },
 
     rest: {
+        all: function (req, res) {
+
+            try {
+
+                var query = ServerEnv.find({name: req.query.environment}).sort('order');
+
+                query.exec(function(err, serverEnvs) {
+
+                    if (!err) {
+
+                        res.json(serverEnvs[0]);
+
+                    } else { throw err; }
+                });
+
+            } catch (err) { res.send(500); }
+        },
+
         take: function (req, res) {
             try {
-                module.exports.take(req.body, function(env) { res.json(env); });
+                module.exports.take(req.body, function(env) {
+
+                    // Extract and return just the requested server!
+                    var srv = findServerByName(req.body.name, env.servers)
+                    res.json(srv);
+                });
             } catch (err) { res.send(500); }
         },
 
         extend: function (req, res) {
             try {
-                module.exports.extend(req.body, function(env) { res.json(env); });
+                module.exports.extend(req.body, function(env) {
+                    // Extract and return just the requested server!
+                    var srv = findServerByName(req.body.name, env.servers)
+                    res.json(srv);
+                });
             } catch (err) { res.send(500); }
         },
 
@@ -306,7 +344,11 @@ module.exports = {
 
         queue: function(req, res) {
             try {
-                module.exports.queue(req.body, function(env) { res.json(env); });
+                module.exports.queue(req.body, function(env) {
+                    // Extract and return just the requested server!
+                    var srv = findServerByName(req.body.name, env.servers)
+                    res.json(srv);
+                });
             } catch (err) { res.send(500); }
         },
 
