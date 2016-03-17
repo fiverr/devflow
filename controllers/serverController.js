@@ -309,7 +309,11 @@ module.exports = {
 
                         res.json(serverEnvs[0]);
 
-                    } else { throw err; }
+                    } else {
+
+                        res.send(500);
+
+                    }
                 });
 
             } catch (err) { res.send(500); }
