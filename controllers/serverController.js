@@ -149,11 +149,18 @@ module.exports = {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
             if (err) { throw err; }
 
-            env.take(data.name, data.user, data.release_date);
-            saveServerEnv(env);
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data, 'took'), 'red');
+            try {
 
-            if (callback) { callback(env); }
+                env.take(data.name, data.user, data.release_date);
+                saveServerEnv(env);
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data, 'took'), 'red');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+                if (callback) { callback(null, exp); }
+            }
+
         });
     },
 
@@ -161,10 +168,17 @@ module.exports = {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
             if (err) { throw err; }
 
-            env.setReleaseDate(data.name, new Date(data.release_date));
-            saveServerEnv(env);
+            try {
 
-            if (callback) { callback(env); }
+                env.setReleaseDate(data.name, new Date(data.release_date));
+                saveServerEnv(env);
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+                if (callback) { callback(null, exp); }
+            }
+
         });
     },
 
@@ -172,23 +186,30 @@ module.exports = {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
             if (err) { throw err; }
 
-            var server = env.release(data.name).toObject();
-            saveServerEnv(env);
+            try {
 
-            notifier.sendMessage('server', "Devflow", server.name + " released", "green");
+                var server = env.release(data.name).toObject();
+                saveServerEnv(env);
 
-            if (server.user) {
-                mailer.sendMail(server.user.email,
-                            server.name + ' is finally free for you',
-                            'Hi <b>' + server.user.name + '</b>, <br/><br/><br/>' +
-                            'Finally, <br/> <br/>' +
-                            '<i>' + server.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
-                            'The server has been marked as taken by you automatically :)');
+                notifier.sendMessage('server', "Devflow", server.name + " released", "green");
 
-                notifier.sendMessage('server', server.user.name, getNotifierMsg(server, 'took by queue'), 'red');
+                if (server.user) {
+                    mailer.sendMail(server.user.email,
+                                server.name + ' is finally free for you',
+                                'Hi <b>' + server.user.name + '</b>, <br/><br/><br/>' +
+                                'Finally, <br/> <br/>' +
+                                '<i>' + server.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
+                                'The server has been marked as taken by you automatically :)');
+
+                    notifier.sendMessage('server', server.user.name, getNotifierMsg(server, 'took by queue'), 'red');
+                }
+
+                if (callback) { callback({env: env, server: server}); }
+
+            } catch (exp) {
+                if (callback) { callback(null, exp); }
             }
 
-            if (callback) { callback({env: env, server: server}); }
         });
     },
 
@@ -196,12 +217,19 @@ module.exports = {
         ServerEnv.findOne({name: data.server.environment}, function(err, env) {
             if (err) { throw err; }
 
-            env.queueServer(data.server.name, data.user);
-            saveServerEnv(env);
+            try {
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'queued in'), 'yellow');
+                env.queueServer(data.server.name, data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'queued in'), 'yellow');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+                if (callback) { callback(null, exp); }
+            }
+
         });
     },
 
@@ -209,12 +237,19 @@ module.exports = {
         ServerEnv.findOne({name: data.server.environment}, function(err, env) {
             if (err) { throw err; }
 
-            env.unqueueServer(data.server.name, data.user);
-            saveServerEnv(env);
+            try {
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'unqueued in'), 'green');
+                env.unqueueServer(data.server.name, data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'unqueued in'), 'green');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+                if (callback) { callback(null, exp); }
+            }
+
         });
     },
 
@@ -222,12 +257,19 @@ module.exports = {
         ServerEnv.findOne({_id: data.env._id}, function(err, env) {
             if (err) { throw err; }
 
-            env.queueEnv(data.user);
-            saveServerEnv(env);
+            try {
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'queued in ENV: '), 'red');
+                env.queueEnv(data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'queued in ENV: '), 'red');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+                if (callback) { callback(null, exp); }
+            }
+
         });
     },
 
@@ -235,12 +277,19 @@ module.exports = {
         ServerEnv.findOne({_id: data.env._id}, function(err, env) {
             if (err) { throw err; }
 
-            env.unqueueEnv(data.user);
-            saveServerEnv(env);
+            try {
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'unqueued in ENV: '), 'green');
+                env.unqueueEnv(data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'unqueued in ENV: '), 'green');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+                if (callback) { callback(null, exp); }
+            }
+
         });
     },
 
@@ -321,45 +370,94 @@ module.exports = {
 
         take: function (req, res) {
             try {
-                module.exports.take(req.body, function(env) {
+                module.exports.take(req.body, function(env, err) {
+
+                    if (err) {
+                        res.send(500, {error: err.toString()});
+                        return;
+                    }
+
+                    if (!env) {
+                        res.send(500, { error: "Environment not found!" });
+                        return;
+                    }
 
                     // Extract and return just the requested server!
                     var srv = findServerByName(req.body.name, env.servers)
                     res.json(srv);
                 });
-            } catch (err) { res.send(500); }
+            } catch (err) { res.send(500, {error: err.toString()}); }
         },
 
         extend: function (req, res) {
             try {
-                module.exports.extend(req.body, function(env) {
+                module.exports.extend(req.body, function(env, err) {
+
+                    if (err) {
+                        res.send(500, {error: err.toString()});
+                        return;
+                    }
+
+                    if (!env) {
+                        res.send(500, { error: "Environment not found!" });
+                        return;
+                    }
+
                     // Extract and return just the requested server!
                     var srv = findServerByName(req.body.name, env.servers)
                     res.json(srv);
                 });
-            } catch (err) { res.send(500); }
+            } catch (err) { res.send(500, {error: err.toString()}); }
         },
 
         release: function(req, res) {
             try {
-                module.exports.release(req.body, function(env) { res.json(env); });
-            } catch (err) { res.send(500); }
+                module.exports.release(req.body, function(env, err) {
+
+                    if (err) {
+                        res.send(500, {error: err.toString()});
+                        return;
+                    }
+
+                    res.json(env);
+
+                });
+            } catch (err) { res.send(500, {error: err.toString()}); }
         },
 
         queue: function(req, res) {
             try {
-                module.exports.queue(req.body, function(env) {
+                module.exports.queue(req.body, function(env, err) {
+
+                    if (err) {
+                        res.send(500, {error: err.toString()});
+                        return;
+                    }
+
+                    if (!env) {
+                        res.send(500, { error: "Environment not found!" });
+                        return;
+                    }
+
                     // Extract and return just the requested server!
                     var srv = findServerByName(req.body.name, env.servers)
                     res.json(srv);
                 });
-            } catch (err) { res.send(500); }
+            } catch (err) { res.send(500, {error: err.toString()}); }
         },
 
         unqueue: function(req, res) {
             try {
-                module.exports.unqueue(req.body, function(env) { res.json(env); });
-            } catch (err) { res.send(500); }
+                module.exports.unqueue(req.body, function(env) {
+
+                    if (err) {
+                        res.send(500, {error: err.toString()});
+                        return;
+                    }
+
+                    res.json(env);
+                });
+            } catch (err) { res.send(500, {error: err.toString()}); }
         }
     }
 }

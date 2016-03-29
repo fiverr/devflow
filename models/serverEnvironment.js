@@ -91,7 +91,12 @@ var environmentSchema = new mongoose.Schema({
 });
 
 environmentSchema.methods.take = function(serverName, user, releaseDate) {
-    findServerbyName(this, serverName).take(getUserDetails(user), releaseDate);
+    var srv = findServerbyName(this, serverName);
+    if (srv == null){
+        return (null);
+    }
+
+    srv.take(getUserDetails(user), releaseDate);
 }
 
 environmentSchema.methods.setReleaseDate = function(serverName, date) {
