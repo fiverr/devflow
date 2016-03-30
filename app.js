@@ -49,13 +49,11 @@ app.use(
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only error handling
-if (env == 'development') {
-    app.use(express.errorHandler());
-}
-
 // setup routes
 require('./routes')(app);
+
+// Must be after all the routes to catch errors.
+app.use(express.errorHandler);
 
 // Init server
 var nodeServer = http.createServer(app);
