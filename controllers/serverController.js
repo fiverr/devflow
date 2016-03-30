@@ -31,6 +31,17 @@ function checkIfInQueue(user, queue) {
     return (false);
 }
 
+function findServerByName(serverName, servers){
+
+    for (var i = 0; i < servers.length; i++) {
+        if (servers[i].name.toLowerCase() == serverName.toLowerCase()) {
+            return (servers[i]);
+        }
+    }
+
+    return (null);
+}
+
 module.exports = {
 
     all: function (req, res) {
@@ -135,101 +146,166 @@ module.exports = {
     },
 
     take: function (data, callback) {
+
         ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; }
 
-            env.take(data.name, data.user, data.release_date);
-            saveServerEnv(env);
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data, 'took'), 'red');
+            try {
 
-            if (callback) { callback(env); }
+                if (err) { throw err; }
+
+                env.take(data.name, data.user, data.release_date);
+                saveServerEnv(env);
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data, 'took'), 'red');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+
+               if (callback) { callback(null, exp); }
+
+            }
+
         });
     },
 
     extend : function(data, callback) {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; }
+            try {
 
-            env.setReleaseDate(data.name, new Date(data.release_date));
-            saveServerEnv(env);
+                if (err) { throw err; }
 
-            if (callback) { callback(env); }
+                env.setReleaseDate(data.name, new Date(data.release_date));
+                saveServerEnv(env);
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+
+                if (callback) { callback(null, exp); }
+
+            }
+
         });
     },
 
     release: function (data, callback) {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; }
+            try {
 
-            var server = env.release(data.name).toObject();
-            saveServerEnv(env);
+                if (err) { throw err; }
 
-            notifier.sendMessage('server', "Devflow", server.name + " released", "green");
+                var server = env.release(data.name).toObject();
+                saveServerEnv(env);
 
-            if (server.user) {
-                mailer.sendMail(server.user.email,
-                            server.name + ' is finally free for you',
-                            'Hi <b>' + server.user.name + '</b>, <br/><br/><br/>' +
-                            'Finally, <br/> <br/>' +
-                            '<i>' + server.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
-                            'The server has been marked as taken by you automatically :)');
+                notifier.sendMessage('server', "Devflow", server.name + " released", "green");
 
-                notifier.sendMessage('server', server.user.name, getNotifierMsg(server, 'took by queue'), 'red');
+                if (server.user) {
+                    mailer.sendMail(server.user.email,
+                                server.name + ' is finally free for you',
+                                'Hi <b>' + server.user.name + '</b>, <br/><br/><br/>' +
+                                'Finally, <br/> <br/>' +
+                                '<i>' + server.name + '</i> is FREE, and <u>you</u> are next in line...<br/><br/><br/><br/>' +
+                                'The server has been marked as taken by you automatically :)');
+
+                    notifier.sendMessage('server', server.user.name, getNotifierMsg(server, 'took by queue'), 'red');
+                }
+
+                if (callback) { callback({env: env, server: server}); }
+
+            } catch (exp) {
+
+                if (callback) { callback(null, exp); }
+
             }
 
-            if (callback) { callback({env: env, server: server}); }
         });
     },
 
     queue: function (data, callback) {
         ServerEnv.findOne({name: data.server.environment}, function(err, env) {
-            if (err) { throw err; }
+            try {
 
-            env.queueServer(data.server.name, data.user);
-            saveServerEnv(env);
+                if (err) { throw err; }
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'queued in'), 'yellow');
+                env.queueServer(data.server.name, data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'queued in'), 'yellow');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+
+                if (callback) { callback(null, exp); }
+
+            }
+
         });
     },
 
     unqueue: function(data, callback) {
         ServerEnv.findOne({name: data.server.environment}, function(err, env) {
-            if (err) { throw err; }
+            try {
 
-            env.unqueueServer(data.server.name, data.user);
-            saveServerEnv(env);
+                if (err) { throw err; }
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'unqueued in'), 'green');
+                env.unqueueServer(data.server.name, data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'unqueued in'), 'green');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+
+                if (callback) { callback(null, exp); }
+
+            }
+
         });
     },
 
     queueEnv: function(data, callback) {
         ServerEnv.findOne({_id: data.env._id}, function(err, env) {
-            if (err) { throw err; }
+            try {
 
-            env.queueEnv(data.user);
-            saveServerEnv(env);
+                if (err) { throw err; }
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'queued in ENV: '), 'red');
+                env.queueEnv(data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'queued in ENV: '), 'red');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+
+                if (callback) { callback(null, exp); }
+
+            }
+
         });
     },
 
     unqueueEnv: function(data, callback) {
         ServerEnv.findOne({_id: data.env._id}, function(err, env) {
-            if (err) { throw err; }
+            try {
 
-            env.unqueueEnv(data.user);
-            saveServerEnv(env);
+                if (err) { throw err; }
 
-            notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'unqueued in ENV: '), 'green');
+                env.unqueueEnv(data.user);
+                saveServerEnv(env);
 
-            if (callback) { callback(env); }
+                notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'unqueued in ENV: '), 'green');
+
+                if (callback) { callback(env); }
+
+            } catch (exp) {
+
+                if (callback) { callback(null, exp); }
+
+            }
+
         });
     },
 
@@ -250,70 +326,165 @@ module.exports = {
     // On-demand
     create: function (data, callback) {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; }
+            try {
 
-            var options = {
-                uri: config.pod.url,
-                method: 'POST',
-                json: { "branch_name": data.branch_name }
-            };
+                if (err) { throw err; }
 
-            request(options, function (error, response, body) {
+                var options = {
+                    uri: config.pod.url,
+                    method: 'POST',
+                    json: { "branch_name": data.branch_name }
+                };
 
-                if (error) { throw error; }
+                request(options, function (error, response, body) {
 
-                var srv = env.create(body.instance_id, data.user, data.release_date, body.deploy_url, body.server_url, data.custom_gemset);
-                saveServerEnv(env);
+                    if (error) { throw error; }
 
-                if (callback) { callback(srv); }
-            });
+                    var srv = env.create(body.instance_id, data.user, data.release_date, body.deploy_url, body.server_url, data.custom_gemset);
+                    saveServerEnv(env);
+
+                    if (callback) { callback(srv); }
+                });
+
+            } catch (exp) {
+
+                if (callback) { callback(null, exp); }
+
+            }
         });
     },
 
     kill: function (data, callback) {
-        ServerEnv.findOne({name: data.environment}, function(err, env) {
-            if (err) { throw err; }
 
-            request.del(config.pod.url + '/' + data.name, function (error, response, body) {
-                if (error) { throw error; }
+        try {
+
+            ServerEnv.findOne({name: data.environment}, function(err, env) {
+                if (err) { throw err; }
+
+                request.del(config.pod.url + '/' + data.name, function (error, response, body) {
+                    if (error) { throw error; }
+                });
+
+                var srv = env.kill(data.name);
+                saveServerEnv(env);
+
+                if (callback) { callback(srv); }
             });
+        } catch (exp) {
 
-            var srv = env.kill(data.name);
-            saveServerEnv(env);
+            if (callback) { callback(null, exp); }
 
-            if (callback) { callback(srv); }
-        });
+        }
     },
 
     rest: {
+        all: function (req, res) {
+
+            var query = ServerEnv.find({name: req.query.environment}).sort('order');
+
+            query.exec(function(err, serverEnvs) {
+
+                try {
+
+                    res.json(serverEnvs[0]);
+
+                } catch (exp) {
+
+                    res.send(500, {error: exp.toString()});
+
+                }
+            });
+
+        },
+
         take: function (req, res) {
-            try {
-                module.exports.take(req.body, function(env) { res.json(env); });
-            } catch (err) { res.send(500); }
+
+            module.exports.take(req.body, function(env, err) {
+
+                if (err) {
+                    res.send(500, {error: err.toString()});
+                    return;
+                }
+
+                if (!env) {
+                    res.send(500, { error: "Environment not found!" });
+                    return;
+                }
+
+                // Extract and return just the requested server!
+                var srv = findServerByName(req.body.name, env.servers)
+                res.json(srv);
+            });
         },
 
         extend: function (req, res) {
-            try {
-                module.exports.extend(req.body, function(env) { res.json(env); });
-            } catch (err) { res.send(500); }
+
+            module.exports.extend(req.body, function(env, err) {
+
+                if (err) {
+                    res.send(500, {error: err.toString()});
+                    return;
+                }
+
+                if (!env) {
+                    res.send(500, { error: "Environment not found!" });
+                    return;
+                }
+
+                // Extract and return just the requested server!
+                var srv = findServerByName(req.body.name, env.servers)
+                res.json(srv);
+            });
         },
 
         release: function(req, res) {
-            try {
-                module.exports.release(req.body, function(env) { res.json(env); });
-            } catch (err) { res.send(500); }
+
+            module.exports.release(req.body, function(env, err) {
+
+                if (err) {
+                    res.send(500, {error: err.toString()});
+                    return;
+                }
+
+                res.json(env);
+
+            });
+
         },
 
         queue: function(req, res) {
-            try {
-                module.exports.queue(req.body, function(env) { res.json(env); });
-            } catch (err) { res.send(500); }
+
+            module.exports.queue(req.body, function(env, err) {
+
+                if (err) {
+                    res.send(500, {error: err.toString()});
+                    return;
+                }
+
+                if (!env) {
+                    res.send(500, { error: "Environment not found!" });
+                    return;
+                }
+
+                // Extract and return just the requested server!
+                var srv = findServerByName(req.body.name, env.servers)
+                res.json(srv);
+            });
+
         },
 
         unqueue: function(req, res) {
-            try {
-                module.exports.unqueue(req.body, function(env) { res.json(env); });
-            } catch (err) { res.send(500); }
+
+            module.exports.unqueue(req.body, function(env) {
+
+                if (err) {
+                    res.send(500, {error: err.toString()});
+                    return;
+                }
+
+                res.json(env);
+            });
+
         }
     }
 }
