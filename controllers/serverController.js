@@ -379,7 +379,7 @@ module.exports = {
 
     rest: {
         all: function (req, res) {
-throw new Error();
+
             var query = ServerEnv.find({name: req.query.environment}).sort('order');
 
             query.exec(function(err, serverEnvs) {
