@@ -222,6 +222,7 @@ module.exports = {
     },
 
     queue: function (data, callback) {
+
         ServerEnv.findOne({name: data.server.environment}, function(err, env) {
             try {
 
@@ -406,13 +407,17 @@ module.exports = {
                     return;
                 }
 
-                if (!env) {
+                if (env == null) {
                     res.send(500, { error: "Environment not found!" });
                     return;
                 }
 
                 // Extract and return just the requested server!
                 var srv = findServerByName(req.body.name, env.servers)
+                if (srv == null) {
+                    res.send(404, { error: "Server not found!" });
+                    return;
+                }
                 res.json(srv);
             });
         },
@@ -433,6 +438,10 @@ module.exports = {
 
                 // Extract and return just the requested server!
                 var srv = findServerByName(req.body.name, env.servers)
+                if (srv == null) {
+                    res.send(404, { error: "Server not found!" });
+                    return;
+                }
                 res.json(srv);
             });
         },
@@ -454,7 +463,7 @@ module.exports = {
 
         queue: function(req, res) {
 
-            module.exports.queue(req.body, function(env, err) {
+            module.exports.queue({ server: req.body, user: req.body.user }, function(env, err) {
 
                 if (err) {
                     res.send(500, {error: err.toString()});
@@ -468,6 +477,10 @@ module.exports = {
 
                 // Extract and return just the requested server!
                 var srv = findServerByName(req.body.name, env.servers)
+                if (srv == null) {
+                    res.send(404, { error: "Server not found!" });
+                    return;
+                }
                 res.json(srv);
             });
 
@@ -475,7 +488,7 @@ module.exports = {
 
         unqueue: function(req, res) {
 
-            module.exports.unqueue(req.body, function(env) {
+            module.exports.unqueue({ server: req.body, user: req.body.user }, function(env, err) {
 
                 if (err) {
                     res.send(500, {error: err.toString()});
