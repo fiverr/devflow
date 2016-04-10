@@ -329,7 +329,10 @@ module.exports = {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
             try {
 
-                if (err) { throw err; }
+                    if (error) {
+                        if (callback) { callback(null, error); }
+                        return;
+                    }
 
                 var options = {
                     uri: config.pod.url,
@@ -339,7 +342,10 @@ module.exports = {
 
                 request(options, function (error, response, body) {
 
-                    if (error) { throw error; }
+                    if (error) {
+                        if (callback) { callback(null, error); }
+                        return;
+                    }
 
                     var srv = env.create(body.instance_id, data.user, data.release_date, body.deploy_url, body.server_url, data.custom_gemset);
                     saveServerEnv(env);
@@ -360,10 +366,19 @@ module.exports = {
         try {
 
             ServerEnv.findOne({name: data.environment}, function(err, env) {
-                if (err) { throw err; }
+
+                if (error) {
+                    if (callback) { callback(null, error); }
+                    return;
+                }
 
                 request.del(config.pod.url + '/' + data.name, function (error, response, body) {
-                    if (error) { throw error; }
+
+                    if (error) {
+                        if (callback) { callback(null, error); }
+                        return;
+                    }
+
                 });
 
                 var srv = env.kill(data.name);
