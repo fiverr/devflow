@@ -329,10 +329,10 @@ module.exports = {
         ServerEnv.findOne({name: data.environment}, function(err, env) {
             try {
 
-                    if (error) {
-                        if (callback) { callback(null, error); }
-                        return;
-                    }
+                if (err) {
+                    if (callback) { callback(null, err); }
+                    return;
+                }
 
                 var options = {
                     uri: config.pod.url,
@@ -367,8 +367,8 @@ module.exports = {
 
             ServerEnv.findOne({name: data.environment}, function(err, env) {
 
-                if (error) {
-                    if (callback) { callback(null, error); }
+                if (err) {
+                    if (callback) { callback(null, err); }
                     return;
                 }
 
