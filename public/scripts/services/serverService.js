@@ -172,7 +172,7 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
             server.branch_name = branchName;
             server.custom_gemset = customGems
 
-            this.setReleaseDate(server, 1);
+            this.setReleaseDate(server, 12);
             socket.emit('createServer', server, function(data) {
                 var env = methods.findEnvByName(data.environment);
                 env.servers.push(data);
