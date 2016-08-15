@@ -49,15 +49,17 @@ prompt.get(inputFields, function (err, result) {
     env2 = new ServerEnv({name: 'Env2', order: 2, queue: [], servers: [{environment: 'Env2', name: 'Server21', queue: [], taken_since: null, release_date: null, is_down: false, user: null, url: null},
                                                          {environment: 'Env2', name: 'Server22', queue: [], taken_since: null, release_date: null, is_down: false, user: null, url: null}]});
 
-    user.save();
-    env1.save();
-    env2.save();
+    var finish = function() {
+        console.log('Your devflow setup is ready!');
+        console.log('Setup Additional communication settings (Hipchat, Slack, Mail) in the config production section...');
+        process.exit();
+    };
 
-    console.log('Your devflow setup is ready!');
-    console.log('Setup Additional communication settings (Hipchat, Slack, Mail) in the config production section...');
-    process.exit();
+    user.save(function(err) {
+        env1.save(function(err) {
+            env2.save(function(err) {
+                finish();
+            });
+        });
+    });
 });
-
-
-
-

@@ -191,7 +191,7 @@ module.exports = {
         query.sort('-count');
 
         if (req.query.count) {
-            query.limit(req.query.count);
+            query.limit(parseInt(req.query.count));
         }
 
         query.exec(function(err, reviews) {
