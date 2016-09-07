@@ -95,11 +95,11 @@ module.exports = {
     },
 
     add: function (data) {
+        var addColor = 'red';
         var request = new Request();
         updateRequest(data, request);
         saveRequest(request);
-        notifier.sendMessage(request.type, data.user.name, getRequestMsg(data, 'added'), 'red');
-
+        notifier.sendMessage(request.type, data.user.name, getRequestMsg(data, 'added'), addColor);
         if (config.requests.notifyRepos) {
             var repoName = request.data.title.split('/')[4];
 
@@ -107,9 +107,16 @@ module.exports = {
                 for (var repoIndex = 0; repoIndex < repos.length; repoIndex++) {
                     var currentRepo = repos[repoIndex];
                     notifier.sendRoomsMessage({hipchat: currentRepo.hipchat_group, slack: currentRepo.slack_group},
-                                               data.user.name, getRequestMsg(data, 'added'), 'red');
+                                               data.user.name, getRequestMsg(data, 'added'), addColor);
                 }
             });
+        }
+
+        if (config.requests.notifyTags && request.tag) {
+            var tag = request.tag;
+            notifier.sendRoomsMessage({
+                slack: tag.owner
+            }, data.user.name, getRequestMsg(data, 'added'), addColor)
         }
 
         return (request);

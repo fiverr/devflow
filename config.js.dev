@@ -86,7 +86,7 @@ module.exports = function(env) {
     var config = {
 
         development: {
-            port: 3000,
+            port: 3333,
             google: {
                 clientId: '{{googleClientID}}',
                 clientSecret: '{{googleClientSecret}}',

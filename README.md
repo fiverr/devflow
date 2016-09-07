@@ -15,7 +15,7 @@ An application allowing to monitor the state of servers and requests of differen
   * Run: "node setup" and enter the requested parameters
   * Add this line to your hosts file: 127.0.0.1 devflow.yourdomain.com # devflow
   * Run with "npm start"
-  * Enter: localhost:3000 or http://devflow.yourdomain.com:3000/ 
+  * Enter: localhost:3333 or http://devflow.yourdomain.com:3333/ 
   
   ( Please Run "npm install" again whenever changing node packages,
     In order to debug it's possible to run "node debug app.js" - node's built-in debugger )
