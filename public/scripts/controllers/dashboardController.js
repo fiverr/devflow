@@ -27,5 +27,17 @@ devflowApp.controller('dashboardController', ['$scope', 'userService', 'requestS
 
         $scope.links = config.links;
 
+        $scope.showSection = function(sectionName) {
+            switch(sectionName) {
+                case 'pullrequests':
+                    return ($scope.pullrequests) && ($scope.pullrequests.length) && ($scope.isFeatureEnabled(sectionName));
+                case 'servers':
+                    return ($scope.serverEnvironments) && ($scope.serverEnvironments.length) && ($scope.isFeatureEnabled(sectionName));
+                case 'graylogs':
+                    return ($scope.graylogs) && ($scope.graylogs.length) && ($scope.isFeatureEnabled(sectionName));    
+                case 'links':
+                    return ($scope.links) && ($scope.links.length);
+            };
+        };
         // todo: implement devops on call
 }]);

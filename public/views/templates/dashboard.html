@@ -1,6 +1,6 @@
 <section class="dashboard">
 
-    <section ng-if="pullrequests.length">
+    <section ng-if="showSection('pullrequests')">
         <header>Pull Requests</header>
         <ul>
             <li ng-repeat="pullrequest in pullrequests | filter: query">
@@ -14,7 +14,7 @@
         </ul>
     </section>
 
-    <section ng-if="graylogs.length">
+    <section ng-if="showSection('graylogs')">
         <header>Graylogs</header>
         <ul>
             <li ng-repeat="graylog in graylogs | filter: query">
@@ -28,7 +28,7 @@
         </ul>
     </section>
 
-    <section class="section-servers" ng-if="serverEnvironments.length">
+    <section class="section-servers" ng-if="showSection('servers')">
         <header>Servers</header>
         <ul>
             <li ng-repeat="env in serverEnvironments | filter: query" ng-if="!env.on_demand">
@@ -37,7 +37,7 @@
         </ul>
     </section>
 
-    <section class="section-links" ng-if="links.length">
+    <section class="section-links" ng-if="showSection('links')">
         <header>Useful Links</header>
         <ul>
             <li ng-repeat="link in links | filter: query">
