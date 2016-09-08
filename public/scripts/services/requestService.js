@@ -237,10 +237,9 @@ devflowApp.factory('requestService', ['$http', 'socket', 'notificationService', 
 
         release: function(request) {
             request.state = 'posted';
-            request.reviewer = null;
             request.taken_date = null;
             request.sort_order = 1;
-            socket.emit('updateRequest', request);
+            socket.emit('releaseRequest', request);
         },
 
         nudge: methods.nudge,

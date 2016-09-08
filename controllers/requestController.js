@@ -1,10 +1,12 @@
-var Request  = require('../models/request'),
-    Review   = require('../models/review'),
-    Repo     = require('../models/repo'),
-    Tag      = require('../models/tag'),
-    mailer   = require('../services/mailer'),
-    notifier = require('../services/notifier'),
-    github   = require('../services/github');
+var Request     = require('../models/request'),
+    Review      = require('../models/review'),
+    Repo        = require('../models/repo'),
+    Tag         = require('../models/tag'),
+    User        = require('../models/user'),
+    mailer      = require('../services/mailer'),
+    notifier    = require('../services/notifier'),
+    prMessages  = require('../services/messages/pullrequests'),
+    github      = require('../services/github');
 
 
 function getRequestMsg(request, actionName) {
@@ -12,7 +14,7 @@ function getRequestMsg(request, actionName) {
         msg = 'I just ' +  actionName + ' a ' +  subType + ' request: <a href="' + request.data.title + '">' + request.data.title + '</a>';
 
     if (request.reviewer) {
-        msg += ' by @' + request.user.email.split('@')[0] + ' (' + request.user.name + ')';
+        msg += ' by ' + request.user.name;
     }
 
     if (request.rejected) {
@@ -149,6 +151,20 @@ module.exports = {
         });
     },
 
+    release: function (data) {
+        Request.findById(data._id, function(err, request) {
+            if (err) { throw err; }
+
+            var releaseMsg = prMessages.released(data);
+            var reviewer = data.reviewer;
+            data.reviewer = null;
+            updateRequest(data, request);
+            saveRequest(request);
+
+            notifier.sendSlackPersonalMessage(data.user.email, reviewer.name, releaseMsg, 'orange');
+        });
+    },
+
     take: function (data) {
         Request.findById(data._id, function(err, request) {
             if (err) { throw err; }
@@ -157,6 +173,7 @@ module.exports = {
                 request.take(data.reviewer);
                 saveRequest(request);
 
+                // notifying user
                 mailer.sendMail(data.user.email,
                                 data.reviewer.name + ' has taken your request!',
                                 'Hi <b>' + data.user.name + '</b>, <br/><br/><br/>' +
@@ -165,6 +182,9 @@ module.exports = {
                                 'Request: <a href = "' + data.data.title  + '">' + data.data.title + '</a><br/><br/><br/><br/>' +
                                 'Say Thanks :)');
 
+                notifier.sendSlackPersonalMessage(data.user.email, data.reviewer.name, prMessages.taken(data), 'yellow');
+
+                // notifying on global Slack channel
                 notifier.sendMessage(request.type, data.reviewer.name, getRequestMsg(data, 'took'), 'yellow');
             }
         });
@@ -179,6 +199,7 @@ module.exports = {
 
             addReview(data);
 
+            // notifying user
             mailer.sendMail(data.user.email,
                             data.reviewer.name + ' has reviewed your request!',
                             'Hi <b>' + data.user.name + '</b>, <br/><br/><br/>' +
@@ -186,7 +207,14 @@ module.exports = {
                             data.reviewer.name + ' has taken your request!<br/><br/>' +
                             'Request: <a href = "' + data.data.title  + '">' + data.data.title + '</a><br/><br/><br/><br/>' +
                             'Say Thanks :)');
+            
+            if (data.rejected) {
+                notifier.sendSlackPersonalMessage(data.user.email, data.reviewer.name, prMessages.rejected(data), 'red');
+            } else {
+                notifier.sendSlackPersonalMessage(data.user.email, data.reviewer.name, prMessages.approved(data), 'green');
+            }
 
+            // notifying on global Slack channel
             notifier.sendMessage(request.type, data.reviewer.name, getRequestMsg(data, 'reviewed') , 'green');
         });
     },

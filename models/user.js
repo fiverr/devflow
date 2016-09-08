@@ -10,7 +10,11 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.isManagingUser = function() {
-	return (this.role == 'admin' || this.role == 'devops');
+    return (this.role == 'admin' || this.role == 'devops');
+}
+
+userSchema.statics.socialName = function(email) {
+	return '@' + email.split('@',1)[0]
 }
 
 module.exports = mongoose.model('User', userSchema, 'Users');

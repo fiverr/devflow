@@ -38,6 +38,7 @@ module.exports = function(nodeServer) {
         socket.setSocketEvent('addRequest', request.add, 'requestAdded');
         socket.setSocketEvent('takeRequest', request.take, 'requestTaken');
         socket.setSocketEvent('completeRequest', request.complete, 'requestCompleted');
+        socket.setSocketEvent('releaseRequest', request.release, 'requestReleased');
         socket.setSocketEvent('updateRequest', request.update, 'requestUpdated');
         socket.setSocketEvent('deleteRequest', request.delete, 'requestDeleted');
         socket.setSocketEvent('nudgeRequest', request.nudge, 'requestNudged');
