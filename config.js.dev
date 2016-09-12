@@ -80,6 +80,13 @@ module.exports = function(env) {
             ],
 
             refreshInterval: 1000 * 60 * 5
+        },
+        globalSettings: {
+            features: {
+                graylogs: true,
+                pullrequests: true,
+                servers: true
+            },
         }
     };
 
