@@ -34,6 +34,10 @@ devflowApp.controller('mainController', ['$scope', '$interval', 'userService', '
             return (window.location.hash == ('#/' + path));
         };
 
+        $scope.isFeatureEnabled = function(featureName) {
+            return config.features[featureName];
+        };
+
         $scope.showUserImagePopup = function() {
             ngDialog.open({
                 template: '/views/templates/popups/userImage.html',
