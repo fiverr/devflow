@@ -1,6 +1,7 @@
 var ServerEnv = require('../models/serverEnvironment'),
     notifier  = require('../services/notifier'),
     mailer = require('../services/mailer'),
+    serverMessages  = require('../services/messages/servers'),
     request = require('request');
 
 function saveServerEnv(serverEnv) {
@@ -208,6 +209,7 @@ module.exports = {
                                 'The server has been marked as taken by you automatically :)');
 
                     notifier.sendMessage('server', server.user.name, getNotifierMsg(server, 'took by queue'), 'red');
+                    notifier.sendSlackPersonalMessage(server.user.email, 'system', serverMessages.automaticallyAssigned(server.user, server), 'orange');
                 }
 
                 if (callback) { callback({env: env, server: server}); }
@@ -232,7 +234,8 @@ module.exports = {
                 saveServerEnv(env);
 
                 notifier.sendMessage('server', data.user.name, getNotifierMsg(data.server, 'queued in'), 'yellow');
-
+                notifier.sendSlackPersonalMessage(data.server.user.email, 'system', serverMessages.spareAServer(data.user, data.server), 'orange');
+                
                 if (callback) { callback(env); }
 
             } catch (exp) {
@@ -277,6 +280,11 @@ module.exports = {
 
                 notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'queued in ENV: '), 'red');
 
+                // notifying personally for each user who has a plike
+                env.servers.map(function(server) {
+                    notifier.sendSlackPersonalMessage(server.user.email, 'system', serverMessages.spareAServer(data.user, server), 'orange');
+                });
+
                 if (callback) { callback(env); }
 
             } catch (exp) {
@@ -298,7 +306,8 @@ module.exports = {
                 saveServerEnv(env);
 
                 notifier.sendMessage('server', data.user.name, getNotifierMsg(data.env, 'unqueued in ENV: '), 'green');
-
+                notifier.sendSlackPersonalMessage(server.user.email, 'system', serverMessages.automaticallyAssigned(server.user, server), 'orange');
+                
                 if (callback) { callback(env); }
 
             } catch (exp) {
