@@ -9,7 +9,7 @@ module.exports = {
     },
 
     config: function(req, res) {
-        var settings = Object.assign(config.client, config.globalSettings);
+        var settings = Object.assign({}, config.client, config.globalSettings);
         res.send('window.config = ' + JSON.stringify(settings));
     },
 
