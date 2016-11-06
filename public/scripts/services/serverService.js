@@ -295,6 +295,8 @@ devflowApp.factory('serverService', ['$http', 'socket', 'notificationService', f
 
             // Run on all servers in environment
             for (var serverIndex = 0; serverIndex < env.servers.length; serverIndex++) {
+                // skipping broken servers
+                if (env.servers[serverIndex].is_down) { continue; }
 
                 // if there is a free server, no need for env queueing
                 if (!env.servers[serverIndex].user) {

@@ -16,11 +16,11 @@ devflowApp.directive('server', ['userService', 'serverService', 'ngDialog', func
             }
 
             $scope.canTakeDown = function(server) {
-                return (serverService.allowedToTakeDown(server, currentUser) && !serverService.isDown(server));
+                return (serverService.allowedToTakeDown(server, currentUser) && !serverService.isDown(server) && !$scope.isTaken(server));
             }
 
             $scope.canTakeUp = function(server) {
-                return (serverService.allowedToTakeDown(server, currentUser) && serverService.isDown(server));
+                return (serverService.allowedToTakeDown(server, currentUser) && serverService.isDown(server) && !$scope.isTaken(server));
             }
 
             $scope.changeDownState = function(server, isDown) {
