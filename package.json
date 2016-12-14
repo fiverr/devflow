@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "setup": "node setup.js"
+    "start": "NODE_ENV=production nohup npm start > /dev/null 2>$1 &",
+    "setup": "node setup.js",
+    "stop": "sudo netstat -nlap | grep 3005 | head -1 | awk '{print $7}' | awk -F/ '{print \"kill -9\", $1}' | bash"
   },
   "dependencies": {
     "express": "3.5.1",
@@ -19,6 +20,8 @@
     "prompt": "~0.2.14",
     "request": "~2.67.0",
     "slack-node": "~0.1.3",
-    "socket.io": "~1.4.5"
+    "socket.io": "~1.4.5",
+    "shipit-deploy": "2.2",
+    "shipit-shared": "4.4.1"
   }
 }
