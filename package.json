@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production nohup npm start > /dev/null 2>$1 &",
+    "start": "NODE_ENV=production nohup npm start &",
     "setup": "node setup.js",
     "stop": "sudo netstat -nlap | grep 3005 | head -1 | awk '{print $7}' | awk -F/ '{print \"kill -9\", $1}' | bash"
   },
