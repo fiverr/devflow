@@ -22,6 +22,8 @@
 
         <a ng-if="canTakeUp(server)" ng-click="changeDownState(server, false)" class="hint--bottom" data-hint="Up"><i class="fa fa-arrow-circle-o-up"></i></a>
         <a ng-if="canTakeDown(server)" ng-click="changeDownState(server, true)" class="hint--bottom" data-hint="Down"><i class="fa fa-arrow-circle-o-down"></i></a>
+
+        <a ng-if="server.url && isCurrentUser(server)" ng-click="navigateToDeploy(server)" class="hint--bottom" data-hint="Deploy Job"><i class="fa fa-cog"></i></a>
     </aside>
 
     <ul>
@@ -31,5 +33,8 @@
     </ul>
 
     <a ng-click="navigateToServer(server)"><h2 ng-class="getState(server)" ng-if="isOnDemand(server)">{{server.server_url.replace('http://', '')}}</h2></a>
-    <h2 ng-class="getState(server)" ng-if="!isOnDemand(server)">{{server.name}}</h2>
+    <h2 ng-class="getState(server)" ng-if="!isOnDemand(server)">
+        <a ng-if="server.server_url" class="cursor-pointer" ng-click="navigateToServer(server)">{{server.name}}</a>
+        <span ng-if="!server.server_url">{{server.name}}</span>
+    </h2>
 </div>
