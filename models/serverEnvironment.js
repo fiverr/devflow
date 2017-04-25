@@ -92,6 +92,7 @@ var environmentSchema = new mongoose.Schema({
 
 environmentSchema.methods.take = function(serverName, user, releaseDate) {
     var srv = findServerbyName(this, serverName);
+
     if (srv == null){
         return (null);
     }

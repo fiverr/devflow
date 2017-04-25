@@ -4,6 +4,7 @@ var express        = require('express'),
     sassMiddleware = require('node-sass-middleware'),
     mongoose       = require('mongoose'),
     domain         = require('domain'),
+    jwt            = require('jsonwebtoken'),
     app            = express(),
     env            = app.get('env'),
     config         = require(process.env.DEVFLOW_CONFIG || './config')(env),
@@ -16,7 +17,8 @@ global.config = config;
 // setup app general settings
 app.set('port', port);
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.favicon());
+app.set('superSecret', config.apiSecret);
+// app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.compress());

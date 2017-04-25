@@ -67,9 +67,22 @@ module.exports = {
     },
 
     getCurrentUser: function(req, res) {
+
+        if (req.query.token) {
+            try {
+                var decodedUser = jwt.verify(req.query.token, req.app.get('superSecret'));
+            } catch(ex) {
+                res.send(500, { error: "Bad token" });
+                return;
+            }
+        }
+
         if (req.user) {
             res.json(req.user);
+        } else if (decodedUser) {
+            res.json(decodedUser)
         }
+
     },
 
     updateCurrentUser: function(req, res) {

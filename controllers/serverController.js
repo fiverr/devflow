@@ -46,8 +46,16 @@ function findServerByName(serverName, servers){
 module.exports = {
 
     all: function (req, res) {
+        if (req.query.token) {
+            try {
+                var decodedUser = jwt.verify(req.query.token, req.app.get('superSecret'));
+            } catch(ex) {
+                res.send(500, { error: "Bad token" });
+                return;
+            }
+        }
 
-        if (!req.user) {
+        if (!req.user && !decodedUser) {
             res.json([]);
             return;
         }
@@ -60,7 +68,7 @@ module.exports = {
 
                 if (!err) {
 
-                    if (!req.user) { // fix for strange server error
+                    if (!req.user && !decodedUser) { // fix for strange server error
                         serverEnvs = [];
                     } else if (req.query.free) {
 
@@ -423,7 +431,15 @@ module.exports = {
         },
 
         take: function (req, res) {
-
+            if (req.body.token) {
+                try {
+                    token = jwt.verify(req.body.token, req.app.get('superSecret'));
+                    req.body.user = token._doc
+                } catch(ex) {
+                    res.send(500, { error: "bad token" });
+                    return;
+                }
+            }
             module.exports.take(req.body, function(env, err) {
 
                 if (err) {
@@ -442,6 +458,7 @@ module.exports = {
                     res.send(404, { error: "Server not found!" });
                     return;
                 }
+
                 res.json(srv);
             });
         },

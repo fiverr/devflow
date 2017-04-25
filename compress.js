@@ -4,6 +4,7 @@ var compressor = require('node-minify'),
         'public/scripts/config.js',
         'public/scripts/services/userService.js',
         'public/scripts/services/notificationService.js',
+        'public/scripts/services/apiTokenService.js',
         'public/scripts/services/requestService.js',
         'public/scripts/services/serverService.js',
         'public/scripts/services/reviewService.js',
@@ -12,6 +13,7 @@ var compressor = require('node-minify'),
         'public/scripts/controllers/mainController.js',
         'public/scripts/controllers/dashboardController.js',
         'public/scripts/controllers/serverController.js',
+        'public/scripts/controllers/apiController.js',
         'public/scripts/controllers/userController.js',
         'public/scripts/controllers/requestController.js',
         'public/scripts/controllers/manageServersController.js',
@@ -34,6 +36,7 @@ module.exports = {
             fileOut: 'public/scripts/application.js',
             options: ['--compress'],
             callback: function(err, min) {
+                console.log(err)
                 console.log('minified and uglified js files');
             }
         });

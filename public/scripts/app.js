@@ -11,6 +11,10 @@ devflowApp.config(['$routeProvider',
                 templateUrl: 'views/templates/servers.html',
                 controller: 'serverController'
             }).
+            when('/api_token', {
+                templateUrl: 'views/templates/api_token.html',
+                controller: 'apiController'
+            }).
             when('/pullrequests', {
                 templateUrl: 'views/templates/requests.html',
                 controller: 'requestController'

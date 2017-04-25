@@ -3,7 +3,8 @@ var index   = require('./controllers/indexController'),
     server  = require('./controllers/serverController'),
     user    = require('./controllers/userController'),
     repo    = require('./controllers/repoController'),
-    tag     = require('./controllers/tagController');
+    tag     = require('./controllers/tagController'),
+    token   = require('./controllers/tokenController');
 
 module.exports = function(app) {
 
@@ -36,4 +37,6 @@ module.exports = function(app) {
 
     app.get('/tags', tag.getAll);
     app.post('/tags', tag.saveAll);
+
+    app.get('/token/generate', token.generate);
 }

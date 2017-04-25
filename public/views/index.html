@@ -47,6 +47,7 @@
             <nav>
                 <a href="#/main" ng-class="{sel: isSelected('main')}"><i class="fa fa-home"></i>Dashboard</a>
                 <a href="#/servers" ng-if="isFeatureEnabled('servers')" ng-class="{sel: isSelected('servers')}"><i class="fa fa-server"></i>Servers</a>
+                <a href="#/api_token" ng-class="{sel: isSelected('api_token')}"><i class="fa fa-key"></i>API Token</a>
                 <a href="#/pullrequests" ng-if="isFeatureEnabled('pullrequests')" ng-class="{sel: isSelected('pullrequests')}"><i class="fa fa-github"></i>Pull Requests</a>
                 <a href="#/graylogs" ng-if="isFeatureEnabled('graylogs')" ng-class="{sel: isSelected('graylogs')}"><i class="fa fa-bug"></i>Graylogs</a>
                 <div class="manage">

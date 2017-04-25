@@ -8,5 +8,5 @@ devflowApp.controller('serverController', ['$scope', 'userService', 'serverServi
         serverService.getServers(false, function(servers) {
             $scope.serverEnvironments = servers;
         });
-   
+
 }]);
