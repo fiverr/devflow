@@ -3,7 +3,7 @@ module.exports = function(env) {
     var global = {
 
         sessionSecret: 'yourSecret',
-        apiSecret: 'arkadywearestillusingit'
+        apiSecret: 'yourApiSecret'
         mongo: 'mongodb://localhost:27017/devflow',
         domain: '{{domainName}}',
         home_url: 'devflow.{{domainName}}.com',
