@@ -20,7 +20,7 @@
     "passport-google-oauth2": "^0.1.6",
     "passport-token-auth": "^0.1.2",
     "prompt": "~0.2.14",
-    "request": "~2.67.0",
+    "request": "~2.68.0",
     "shipit-deploy": "2.2",
     "shipit-shared": "4.4.1",
     "slack-node": "~0.1.3",
