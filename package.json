@@ -15,7 +15,7 @@
     "node-minify": "~1.3.7",
     "node-sass": "^3.8.0",
     "node-sass-middleware": "^0.9.8",
-    "nodemailer": "^0.6.3",
+    "nodemailer": "^6.4.16",
     "passport": "^0.2.0",
     "passport-google-oauth2": "^0.1.6",
     "passport-token-auth": "^0.1.2",
